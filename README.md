@@ -1,5 +1,5 @@
 
-# Server, LAMP, and Wallet Setup and Configuration Instructions
+# VerusPay Installer - Server, LAMP, and Wallet Setup and Configuration Instructions
 
 What this guide and accompanying scripts will do:
 
