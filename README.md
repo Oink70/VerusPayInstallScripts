@@ -123,6 +123,12 @@ When the installer begins, answer the first question "Is this server a REMOTE WA
 
 After the installer completes, you'll have important information displayed.  WRITE THIS INFORMATION DOWN IN A SECURE PLACE.
 
+#### Step 5 - Setup DigitalOcean Firewall
+
+Although the install script sets up a server firewall, only allowing your store server to access the Verus Chain Tools, it is recommended to setup a firewall within your DigitalOcean config and only allow your Store IP address access to HTTPS of your Wallet Server.
+
+To do this, within Digital Ocean, navigate to the Networking section, create a new firewall and add HTTPS to the Inbound section.  Then remove both "All" options for HTTPS and add your Store's IP for HTTPS.  Leave SSH untouched.  Save the firewall and add your Wallet Server to it.
+
 ### Alternate Option: Install Wallets and Chain Tools on the Same Server as Your Web Store
 
 This is NOT recommended unless you have a very capable server (min of 4GB RAM and 2vCPUs).  
