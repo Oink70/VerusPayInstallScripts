@@ -355,7 +355,7 @@ txindex=1
 rpcworkqueue=256
 rpcallowip=127.0.0.1
 datadir=/opt/pirate/ARRR
-wallet=vrsc_store.dat
+wallet=arrr_store.dat
 EOL
 clear
 echo "Starting new screen and running Pirate daemon to begin Pirate sync..."
