@@ -4,5 +4,5 @@ if pgrep -x "komodod" > /dev/null
 then
     TRUE="1"
 else
-    /home/$USER/verus-cli/verusd -mint -daemon
+    /opt/verus-cli/verusd -mint -daemon
 fi
