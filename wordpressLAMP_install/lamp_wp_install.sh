@@ -36,7 +36,7 @@ else
 fi
 echo ""
 echo "Email address for you as the admin"
-ehco "(used SSL settings):"
+echo "(used SSL settings):"
 read email
 echo ""
 export domain
