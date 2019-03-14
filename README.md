@@ -12,6 +12,12 @@ Setting up an online store that accepts cryptocurrency with NO THIRD PARTY PAYME
 
 It is recommended to run your online store and install your crypto wallet(s) on seperate servers.  If you choose to install everything on the same server, please make sure it's "beefy" enough to handle the processing load!  A min of 4GB of RAM and 2 vCPUs is recommended for a "same server" install.
 
+### IMPORTANT: If you already have VerusPay version < 0.2.0 
+
+If you previously setup VerusPay before this new release of version 0.2.0, please note these instructions DO NOT MIGRATE your previous Verus VRSC wallet. You will need to move this Verus wallet manually.  This installer will NOT overwrite the old wallet, so it IS SAFE TO CONTINUE as long as you DO NOT WIPE YOUR PREVIOUS STORE UNLESS YOU'VE BACKED UP YOUR PREVIOUS VERUS WALLET!!  
+
+Contact John Westbrook on the official VerusCoin Discord for help with this backup process.
+
 
 ## Before you begin
 
