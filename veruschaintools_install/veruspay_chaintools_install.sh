@@ -49,7 +49,7 @@ else
     echo "Okay, we will configure this as the SAME SERVER of your"
     echo "VerusPay WooCommerce Store server."
     echo ""
-    locwpconfig="$(find /var/www -type f -name 'wp-config.php')"
+    locwpconfig="$(sudo find /var/www -type f -name 'wp-config.php')"
     if [ -z "$locwpconfig" ];then
         echo "not found!"
         exit
