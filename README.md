@@ -119,7 +119,7 @@ Issue these commands to run the installer:
 
 `./veruspay_chaintools_install.sh`
 
-When the installer begins, answer the first question "Is this server a REMOTE WALLET server" with Y or Yes to do the Remote Wallet Server install.
+When the installer begins, enter "1" and press ENTER to do the Remote Wallet Server install.
 
 If you want all the available cryptos installed on the same server, just answer Yes to all the questions after entering your store server's IP address.
 
@@ -160,7 +160,7 @@ Issue these commands to run the installer:
 
 `./veruspay_chaintools_install.sh`
 
-When the installer begins, answer the first question "Is this server a REMOTE WALLET server" with N or No to install on the same server as your store.
+When the installer begins, enter "2" and ENTER to install on the same server as your store.
 
 After the installer completes, you'll have important information displayed.  WRITE THIS INFORMATION DOWN IN A SECURE PLACE.
 
