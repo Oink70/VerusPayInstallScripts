@@ -21,12 +21,12 @@ echo "What is the domain?"
 echo "Enter WITHOUT the www (e.g. yourdomain.com):"
 read domain
 echo ""
-echo "Email address for you as the admin"
-echo "(used SSL settings):"
-read email
+echo "Enter the MySQL Root Password (from your initial install notes)"
+echo "MySql Root Password:"
+read rootpass
 echo ""
 export domain
-export email
+export rootpass
 [ "$passlength" == "" ] && passlength=32
 export wppass=$(tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${passlength} | xargs)
 [ "$namelength" == "" ] && namelength=6
