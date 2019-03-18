@@ -55,8 +55,9 @@ mkdir -p /tmp/veruspaystore
 cd /tmp/veruspaystore
 wget https://veruspay.io/setup/verusstorescripts.tar.xz
 tar -xvf /tmp/veruspaystore/verusstorescripts.tar.xz
-chmod +x /tmp/veruspaystore/add_another_domain.sh
 mv /tmp/veruspaystore/add_another_domain.sh ~
+mv /tmp/veruspaystore/add_another_wp.sh ~
+mv /tmp/veruspaystore/add_db_wp.sh ~
 sudo fallocate -l 4G /swapfile
 echo "Setting up 4GB swap file..."
 sleep 3

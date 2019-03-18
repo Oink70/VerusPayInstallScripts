@@ -36,10 +36,12 @@ export wpuser="wp_us_"$(tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${namelength}
 echo ""
 echo "Thank you. Beginning WordPress server configuration!"
 echo ""
-echo "Downloading and unpacking latest WordPress..."
+echo "Downloading and unpacking latest WordPress and config DB..."
 echo ""
 echo ""
 sleep 3
+sudo apt --yes -qq expect
+sudo -E ./add_db_wp.sh
 cd /tmp
 curl -O https://wordpress.org/latest.tar.gz
 tar xzvf latest.tar.gz
@@ -71,6 +73,7 @@ echo "Cleaning up..."
 echo ""
 echo ""
 sleep 3
+sudo apt -y -qq purge expect
 sudo rm /tmp/latest.tar.gz
 sudo rm /tmp/wordpress -r
 clear
