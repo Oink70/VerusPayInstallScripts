@@ -55,8 +55,8 @@ mkdir -p /tmp/veruspaystore
 cd /tmp/veruspaystore
 wget https://veruspay.io/setup/verusstorescripts.tar.xz
 tar -xvf /tmp/veruspaystore/verusstorescripts.tar.xz
-chmod +x /tmp/veruspaystore/verusstorescripts/add_another_domain.sh
-mv /tmp/veruspaystore/verusstorescripts/add_another_domain.sh ~
+chmod +x /tmp/veruspaystore/add_another_domain.sh
+mv /tmp/veruspaystore/add_another_domain.sh ~
 sudo fallocate -l 4G /swapfile
 echo "Setting up 4GB swap file..."
 sleep 3
@@ -127,7 +127,7 @@ echo ""
 sleep 6
 sudo apt --yes -qq install mysql-server expect
 #Run expect script for mysql, retain environment vars
-sudo -E /tmp/veruspaystore/verusstorescripts/do_mysql_secure.sh
+sudo -E /tmp/veruspaystore/do_mysql_secure.sh
 sudo apt --yes -qq install php libapache2-mod-php php-mysql
 sudo rm /etc/apache2/mods-available/dir.conf
 cd /tmp/veruspaystore
@@ -147,7 +147,7 @@ sleep 6
 sudo add-apt-repository -y ppa:certbot/certbot
 sudo apt --yes -qq install python-certbot-apache
 sudo systemctl reload apache2
-sudo -E /tmp/veruspaystore/verusstorescripts/do_certs.sh
+sudo -E /tmp/veruspaystore/do_certs.sh
 clear
 echo "Installing WordPress dependencies..."
 echo ""
