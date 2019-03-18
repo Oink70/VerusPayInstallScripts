@@ -55,8 +55,8 @@ mkdir -p /tmp/veruspaystore
 cd /tmp/veruspaystore
 wget https://veruspay.io/setup/verusstorescripts.tar.xz
 tar -xvf /tmp/veruspaystore/verusstorescripts.tar.xz
-chmod +x /tmp/veruspaystore/verusstorescripts/add_another_domain
-mv /tmp/veruspaystore/verusstorescripts/add_another_domain ~
+chmod +x /tmp/veruspaystore/verusstorescripts/add_another_domain.sh
+mv /tmp/veruspaystore/verusstorescripts/add_another_domain.sh ~
 sudo fallocate -l 4G /swapfile
 echo "Setting up 4GB swap file..."
 sleep 3
@@ -224,7 +224,7 @@ echo "  WordPress DB Name: "$wpdb
 echo "  WordPress DB User: "$wpuser
 echo "  WordPress DB Pass: "$wppass
 echo ""
-echo "  A script called 'add_another_domain'"
+echo "  A script called 'add_another_domain.sh'"
 echo "  has been placed in your home folder"
 echo "  which can be run later if you ever "
 echo "  wish to add another domain to this "
