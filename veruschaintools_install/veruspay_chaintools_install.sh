@@ -32,26 +32,35 @@ sleep 30
 echo ""
 shopt -s nocasematch
 echo "Is this server a REMOTE WALLET server (not the same as your store server)?"
-echo "(Yes or No):"
+echo "Choose a wallet daemon installation mode:"
+echo ""
+echo "1) This server is a DEDICATED WALLET SERVER and is REMOTE FROM MY STORE"
+echo "2) This server is THE SAME SERVER AS MY WOOCOMMERCE STORE"
+echo ""
+echo "Enter a number option (1 or 2) and press ENTER:"
 read whatserver
-if [[ $whatserver == "no" ]] || [[ $whatserver == "n" ]];
-then
-    echo "Okay, we will configure this as the SAME SERVER of your"
-    echo "VerusPay WooCommerce Store server."
-    echo ""
-    echo "Please enter the exact root directory path for your"
-    echo "web server (e.g. /var/www/mysite.com/html - Note: NO TRAILING SLASH )"
-    echo "and then press ENTER:"
-    read rootpath
-    export rootpath
-    export domain="localhost"
-    export remoteinstall=0
-else
+if [ "$whatserver" == "1" ];then
     echo "Okay, we will configure this as a REMOTE WALLET SERVER from your"
     echo "VerusPay WooCommerce Store server."
     export rootpath="/var/www/html"
     export domain="$( curl http://icanhazip.com )"
     export remoteinstall=1
+else
+    echo "Okay, we will configure this as the SAME SERVER of your"
+    echo "VerusPay WooCommerce Store server."
+    echo ""
+    locwpconfig="$(find /var/www -type f -name 'wp-config.php')"
+    if [ -z "$locwpconfig" ];then
+        echo "not found!"
+        exit
+    else
+        export rootpath=${locwpconfig%"/wp-config.php"}
+        echo "It appears your WordPress store is installed at $rootpath"
+        echo "if that is incorrect, press CTRL-Z to end this script."
+    fi
+    export domain="localhost"
+    export afterinst="Please Reboot This Server After Writing Down the Above Info"
+    export remoteinstall=0
 fi
 if [ "$remoteinstall" == "1" ];then
 echo "Enter the IP address of your WooCommerce VerusPay store server"
@@ -387,9 +396,8 @@ clear
 echo ""
 echo "     ====================================="
 echo "     =           IMPORTANT!              ="
-echo "     =  Below are your new credentials   ="
-echo "     =  and details. Write down these    ="
-echo "     =  details down in a secure place   ="
+echo "     =  Write down the following info    ="
+echo "     =  in a secure place.               ="
 echo "     ====================================="
 echo "                                          "
 echo "       RPC Credentials for Both Chains:   "
@@ -408,4 +416,6 @@ echo "                                          "
 echo "           $domain                        "
 echo "                                          "
 echo "     ====================================="
+echo ""
+echo "     $afterinst"
 echo ""
