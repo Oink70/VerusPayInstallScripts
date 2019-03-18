@@ -134,7 +134,7 @@ To do this, within Digital Ocean, navigate to the Networking section, create a n
 ## DONE! Go to Part 3
 
 
-Following is NOT recommended and NOT NECESSARY if you just did the above:
+Following "Alternate Option" is NOT recommended and NOT NECESSARY if you just did the above.  It is only meant if you are installing the wallet daemons on the same server as a WooCommerce store:
 
 ### Alternate Option: Install Wallets and Chain Tools on the Same Server as Your Web Store
 
@@ -179,4 +179,22 @@ The script will create a file in the same folder called VerusPayGeneratedAddress
 
 #### FAQs:
 
-Coming soon
+##### Q:
+I'm running a Woocommerce shop on an Azure hosted WebApp / Shared Host / Godaddy / Dreamhost / etc. Can I use this guide?
+
+##### A:
+Yes, you can follow this published guide from GitHub and just follow the recommended procedure above (your wallet server will be a seperate/new server you setup with DigitalOcean).
+
+##### Q:
+How do I withdraw funds from my store wallet(s)?
+
+##### A:
+If you are withdrawing "transparent" funds (e.g. from sales made to Verus "R" addresses):
+ -Login with SSH to the server hosting the wallet daemon and issue the following command, replacing the appropriate address and amount variables:
+For Verus: `/opt/verus/verus.sh sendtoaddress "RECEIVEADDRESS" AMOUNT`
+
+If you are withdrawing "private" or "sapling" funds (e.g. from sales made to a "zs" address):
+- Login with SSH to the server hosting the wallet daemon and issue the following command for the applicable wallet, replacing the appropriate address and amount variables:
+For Verus: `/opt/verus/verus.sh z_sendmany "STOREADDRESSSENDINGFROM" "[{\"address\": \"RECEIVEADDRESS\", \"amount\":AMOUNT}]"`
+
+For Pirate: `/opt/pirate/pirate.sh z_sendmany "STOREADDRESSSENDINGFROM" "[{\"address\": \"RECEIVEADDRESS\", \"amount\":AMOUNT}]"`
