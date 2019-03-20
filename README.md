@@ -53,7 +53,7 @@ Next, do the following commands to disable root SSH access:
 
 Inside this file, find and change `PermitRootLogin yes` to `PermitRootLogin no` and save with CTRL-O and CTRL-X
 
-Next, I recommend enabling SSH key login, over password login, as it's much more secure.  To learn how, follow this guide: https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/ 
+Next, I recommend enabling SSH key login, over password login, as it's much more secure.  To learn how, follow this guide: https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/  for your OS...or use this simple walk through if you're using Linux on your personal computer: https://github.com/VerusCoin/VerusServicesSetup/blob/master/S-NOMP.md#further-considerations (Thanks to 0x03 at the VerusCoin Discord)
 
 #### Step 4 - Log in with SSH as your new user and issue the following commands to install WordPress:
 
