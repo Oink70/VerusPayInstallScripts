@@ -2,6 +2,9 @@
 #set working directory to the location of this script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
+chmod +x veruspay_scripts -R
+mkdir /tmp/veruspayinstall
+cp -r veruspay_scripts /tmp/veruspayinstall/
 #Get variables and user input
 clear
 echo "     =========================================================="
@@ -139,11 +142,6 @@ fi
 [ "$plength" == "" ] && plength=66
 export rpcuser="user"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${ulength} | xargs)
 export rpcpass="pass"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
-mkdir /tmp/veruspayinstall
-cd /tmp/veruspayinstall
-wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/officialsupportscripts.tar.xz
-tar -xvf officialsupportscripts.tar.xz -C /tmp/veruspayinstall
-chmod +x /tmp/veruspayinstall/officialsupportscripts/*/*.sh -R
 if [ "$remoteinstall" == "1" ];then
     sudo fallocate -l 4G /swapfile
     echo "Setting up 4GB swap file..."
@@ -162,7 +160,7 @@ fi
 echo "Installing some dependencies..."
 sleep 1
 sudo apt -qq update
-sudo apt --yes -qq install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl screen
+sudo apt --yes -qq unzip install build-essential pkg-config libc6-dev m4 g++-multilib autoconf libtool ncurses-dev unzip git python python-zmq zlib1g-dev wget libcurl4-openssl-dev bsdmainutils automake curl screen
 sudo apt -qq update
 sudo apt -y -qq autoremove
 if [ "$remoteinstall" == "1" ];then
@@ -201,7 +199,7 @@ EOL
         echo ""
         sleep 3
         cd /tmp/veruspayinstall
-        sudo -E /tmp/veruspayinstall/veruschaintools/self_cert.sh
+        sudo -E /tmp/veruspayinstall/veruspay_scripts/self_cert.sh
 cat >ssl-params.conf <<EOL
 SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
 SSLProtocol All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
@@ -264,9 +262,9 @@ echo ""
 echo ""
 sleep 3
 cd /tmp/veruspayinstall
-sudo mv /tmp/veruspayinstall/veruschaintools/veruschaintools $rootpath/veruschaintools
-sudo mv /tmp/veruspayinstall/veruschaintools /opt/veruschaintools
-sudo chown -R $USER:$USER /opt/veruschaintools
+wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
+unzip master.zip
+sudo mv /tmp/veruspayinstall/VerusChainTools-master/* $rootpath/veruschaintools
 clear
 echo "Installing Verus Chain Tools..."
 echo ""
@@ -281,33 +279,33 @@ sudo chown -R www-data:www-data $rootpath/veruschaintools
 sudo chmod 755 -R $rootpath/veruschaintools
 clear
 if [ "$vrsc" == "1" ];then
-echo "Downloading and unpacking latest Verus CLI release..."
-echo "installing to: /opt/verus ..."
-echo ""
-echo ""
-sleep 6
-sudo mkdir -p /opt/verus
-sudo chown -R $USER:$USER /opt/verus
-cd /tmp/veruspayinstall
-wget https://veruspay.io/setup/verus.tar.xz
-tar -xvf verus.tar.xz -C /opt
-chmod +x /opt/verus/*.sh
-clear
-echo "Fetching Zcash parameters if needed..."
-echo ""
-echo ""
-sleep 3
-/opt/verus/fetch-params
-clear
-echo "Downloading and unpacking VRSC bootstrap..."
-echo "setting up configuration files..."
-echo ""
-echo ""
-sleep 3
-mkdir /opt/verus/VRSC
-cd /tmp/veruspayinstall
-wget https://bootstrap.0x03.services/veruscoin/VRSC-bootstrap.tar.gz
-tar -xvf VRSC-bootstrap.tar.gz -C /opt/verus/VRSC
+    echo "Downloading and unpacking latest Verus CLI release..."
+    echo "installing to: /opt/verus ..."
+    echo ""
+    echo ""
+    sleep 6
+    sudo mkdir -p /opt/verus
+    sudo chown -R $USER:$USER /opt/verus
+    cd /tmp/veruspayinstall
+    wget https://veruspay.io/setup/verus.tar.xz
+    tar -xvf verus.tar.xz -C /opt
+    clear
+    echo "Fetching Zcash parameters if needed..."
+    echo ""
+    echo ""
+    sleep 3
+    mv /tmp/veruspayinstall/officialsupportscripts/verus/* /opt/verus/
+    /opt/verus/fetchparams.sh
+    clear
+    echo "Downloading and unpacking VRSC bootstrap..."
+    echo "setting up configuration files..."
+    echo ""
+    echo ""
+    sleep 3
+    mkdir /opt/verus/VRSC
+    cd /tmp/veruspayinstall
+    wget https://bootstrap.0x03.services/veruscoin/VRSC-bootstrap.tar.gz
+    tar -xvf VRSC-bootstrap.tar.gz -C /opt/verus/VRSC
 cat >/opt/verus/VRSC.conf <<EOL
 rpcuser=$rpcuser
 rpcpassword=$rpcpass
@@ -319,24 +317,24 @@ rpcallowip=127.0.0.1
 datadir=/opt/verus/VRSC
 wallet=vrsc_store.dat
 EOL
-clear
-echo "Starting new screen and running Verus daemon to begin Verus sync..."
-echo ""
-echo ""
-sleep 6
-screen -d -m /opt/verus/start.sh
-echo "Installing cron job to run verusstat.sh script every 5 min"
-echo "to check Verus daemon status and start if it stops..."
-echo ""
-echo ""
-sleep 6
-cd /tmp/veruspayinstall
-crontab -l > tempveruscron
-echo "*/5 * * * * /opt/veruschaintools/verusstat.sh" >> tempveruscron
-crontab tempveruscron
-rm tempveruscron
-clear
-vrscstat="Yes"
+    clear
+    echo "Starting new screen and running Verus daemon to begin Verus sync..."
+    echo ""
+    echo ""
+    sleep 6
+    screen -d -m /opt/verus/start.sh
+    echo "Installing cron job to run verusstat.sh script every 5 min"
+    echo "to check Verus daemon status and start if it stops..."
+    echo ""
+    echo ""
+    sleep 6
+    cd /tmp/veruspayinstall
+    crontab -l > tempveruscron
+    echo "*/5 * * * * /opt/verus/verusstat.sh" >> tempveruscron
+    crontab tempveruscron
+    rm tempveruscron
+    clear
+    vrscstat="Yes"
 else
     vrscstat="No"
 fi
@@ -351,13 +349,13 @@ sudo chown -R $USER:$USER /opt/pirate
 cd /tmp/veruspayinstall
 wget https://veruspay.io/setup/pirate.tar.xz
 tar -xvf pirate.tar.xz -C /opt
-chmod +x /opt/pirate/*.sh
 clear
 echo "Fetching Zcash parameters if needed..."
 echo ""
 echo ""
 sleep 3
-/opt/pirate/fetch-params
+mv /tmp/veruspayinstall/officialsupportscripts/pirate/* /opt/pirate/
+/opt/pirate/fetchparams.sh
 clear
 echo "Downloading and unpacking ARRR bootstrap..."
 echo "setting up configuration file..."
@@ -392,7 +390,7 @@ echo ""
 sleep 6
 cd /tmp/veruspayinstall
 crontab -l > temppiratecron
-echo "*/5 * * * * /opt/veruschaintools/piratestat.sh" >> temppiratecron
+echo "*/5 * * * * /opt/pirate/piratestat.sh" >> temppiratecron
 crontab temppiratecron
 rm temppiratecron
 clear

@@ -179,7 +179,7 @@ cd /tmp/veruspayupdate
 wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
 unzip master.zip
 sudo rm $rootpath/*
-sudo mv /tmp/veruspayupdate/VerusChainTools-master $rootpath/
+sudo mv /tmp/veruspayupdate/VerusChainTools-master/* $rootpath/
 cat >veruschaintools_config.php <<EOL
 <?php {"vrsc":{"rpc_user":"$rpcuser","rpc_pass":"$rpcpass","port":"27486","taddr":"$vrsc_t","zaddr":"$vrsc_z"},"arrr":{"rpc_user":"$rpcuser","rpc_pass":"$rpcpass","port":"45453","taddr":"$arrr_t","zaddr":"$arrr_z"},"kmd":{"rpc_user":"$rpcuser","rpc_pass":"$rpcpass","port":"7771","taddr":"$kmd_t","zaddr":"$kmd_z"}}
 EOL
