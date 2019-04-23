@@ -59,7 +59,7 @@ Next, I recommend enabling SSH key login, over password login, as it's much more
 
 `cd ~`
 
-`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/veruspay_install_scripts.tar.xz`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.1/veruspay_install_scripts.tar.xz`
 
 `tar -xvf veruspay_install_scripts.tar.xz`
 
@@ -117,7 +117,7 @@ Issue these commands to run the installer:
 
 `cd ~`
 
-`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/veruspay_install_scripts.tar.xz`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.1/veruspay_install_scripts.tar.xz`
 
 `tar -xvf veruspay_install_scripts.tar.xz`
 
@@ -148,7 +148,7 @@ This is NOT recommended unless you have a very capable server (min of 4GB RAM an
 
 #### Step 1 - Log in with SSH to your store server and issue the below commands to run the "Verus Chain Tools Installer", which will install the cryptos you wish and Verus Chain Tools blockchain integration required by VerusPay.
 
-Running the following script will configure a new VPS as a dedicated "wallet server" running Verus Chain Tools, a Zcash-compatible blockchain integration toolset which allows VerusPay to interact with the blockchain.  This script will also install the crypto wallet daemons of your choice (you'll be prompted during install), setting up a fully native and sync'd wallet for each on this server.  This installer will also create a self-signed SSL cert on this server, you can bypass this step if you want but it is recommended to keep SSL.
+Running the following script will configure your Web Store server as your "wallet server" running Verus Chain Tools, a Zcash-compatible blockchain integration toolset which allows VerusPay to interact with the blockchain.  This script will also install the crypto wallet daemons of your choice (you'll be prompted during install), setting up a fully native and sync'd wallet for each on this server.  This installer will also create a self-signed SSL cert on this server, you can bypass this step if you want but it is recommended to keep SSL.
 
 This script does NOT store or send this information anywhere, you can review the source code either here in the repo or after you download, it is open.
 
@@ -160,7 +160,7 @@ Issue these commands to run the installer:
 
 `cd ~`
 
-`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/veruspay_install_scripts.tar.xz`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.1/veruspay_install_scripts.tar.xz`
 
 `tar -xvf veruspay_install_scripts.tar.xz`
 
