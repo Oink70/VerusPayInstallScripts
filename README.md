@@ -59,11 +59,13 @@ Next, I recommend enabling SSH key login, over password login, as it's much more
 
 `cd ~`
 
-`wget https://veruspay.io/setup/lamp_wp_install.sh`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/veruspay_install_scripts.tar.xz`
 
-`chmod +x lamp_wp_install.sh`
+`tar -xvf veruspay_install_scripts.tar.xz`
 
-`./lamp_wp_install.sh`
+`chmod +x *.sh`
+
+`./veruspay_scripts/wordpressLAMP_install/lamp_wp_install.sh`
 
 After the install finishes, it will display IMPORTANT information for you to write down in a secure location. BE SURE TO WRITE THIS INFORMATION DOWN. 
 
@@ -113,9 +115,11 @@ Issue these commands to run the installer:
 
 `cd ~`
 
-`wget https://veruspay.io/setup/veruspay_chaintools_install.sh`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/veruspay_install_scripts.tar.xz`
 
-`chmod +x veruspay_chaintools_install.sh`
+`tar -xvf veruspay_install_scripts.tar.xz`
+
+`chmod +x *.sh`
 
 `./veruspay_chaintools_install.sh`
 
@@ -154,9 +158,11 @@ Issue these commands to run the installer:
 
 `cd ~`
 
-`wget https://veruspay.io/setup/veruspay_chaintools_install.sh`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/veruspay_install_scripts.tar.xz`
 
-`chmod +x veruspay_chaintools_install.sh`
+`tar -xvf veruspay_install_scripts.tar.xz`
+
+`chmod +x *.sh`
 
 `./veruspay_chaintools_install.sh`
 
