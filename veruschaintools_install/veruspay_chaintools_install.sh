@@ -96,6 +96,11 @@ if [ "$walletinstall" == "1" ];then
     else
         export arrr=0
     fi
+    if [ "$arrr" == "1" ];
+        echo "Carefully enter a valid ARRR Sapling address, where you'll receive store cash outs:"
+        read arrr_z
+        count_arrr_z=${#arrr_z}
+    fi
     echo "Install Verus VRSC Daemon?"
     read vrscans
     if [[ $vrscans == "yes" ]] || [[ $vrscans == "y" ]];
@@ -103,6 +108,14 @@ if [ "$walletinstall" == "1" ];then
         export vrsc=1
     else
         export vrsc=0
+    fi
+    if [ "$arrr" == "1" ];
+        echo "Carefully enter a valid VRSC Transparent address, where you'll receive Transparent store cash outs:"
+        read vrsc_t
+        count_vrsc_t=${#vrsc_t}
+        echo "Carefully enter a valid VRSC Sapling address, where you'll receive Sapling store cash outs:"
+        read vrsc_z
+        count_vrsc_z=${#vrsc_z}
     fi
 else
     export vrsc=0
@@ -261,7 +274,7 @@ echo ""
 sleep 3
 cd /tmp/veruspayinstall
 cat >veruschaintools_config.php <<EOL
-<?php a:2:{s:4:"vrsc";a:3:{s:8:"rpc_user";s:14:"$rpcuser";s:8:"rpc_pass";s:70:"$rpcpass";s:4:"port";s:5:"27486";}s:4:"arrr";a:3:{s:8:"rpc_user";s:14:"$rpcuser";s:8:"rpc_pass";s:70:"$rpcpass";s:4:"port";s:5:"45453";}}
+<?php a:2:{s:4:"vrsc";a:5:{s:8:"rpc_user";s:14:"$rpcuser";s:8:"rpc_pass";s:70:"$rpcpass";s:4:"port";s:5:"27486";s:5:"taddr";s:$count_vrsc_t:"$vrsc_t";s:5:"zaddr";s:$count_vrsc_z:"$vrsc_z";}s:4:"arrr";a:5:{s:8:"rpc_user";s:14:"$rpcuser";s:8:"rpc_pass";s:70:"$rpcpass";s:4:"port";s:5:"45453";s:5:"taddr";s:$count_arrr_t:"$arrr_t";s:5:"zaddr";s:$count_arrr_z:"$arrr_z";}}
 EOL
 sudo mv /tmp/veruspayinstall/veruschaintools_config.php $rootpath/veruschaintools/veruschaintools_config.php
 sudo chown -R www-data:www-data $rootpath/veruschaintools
