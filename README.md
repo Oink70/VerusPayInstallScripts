@@ -65,6 +65,8 @@ Next, I recommend enabling SSH key login, over password login, as it's much more
 
 `chmod +x *.sh`
 
+`chmod +x veruspay_scripts -R`
+
 `./veruspay_scripts/wordpressLAMP_install/lamp_wp_install.sh`
 
 After the install finishes, it will display IMPORTANT information for you to write down in a secure location. BE SURE TO WRITE THIS INFORMATION DOWN. 
