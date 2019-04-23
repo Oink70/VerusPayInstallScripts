@@ -139,23 +139,23 @@ fi
 [ "$plength" == "" ] && plength=66
 export rpcuser="user"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${ulength} | xargs)
 export rpcpass="pass"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
-mkdir -p /tmp/veruspayinstall/veruschaintools
+mkdir /tmp/veruspayinstall
 cd /tmp/veruspayinstall
-wget https://veruspay.io/setup/veruschaintools.tar.xz
-tar -xvf veruschaintools.tar.xz -C /tmp/veruspayinstall
-chmod +x /tmp/veruspayinstall/veruschaintools/*.sh
+wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.0/officialsupportscripts.tar.xz
+tar -xvf officialsupportscripts.tar.xz -C /tmp/veruspayinstall
+chmod +x /tmp/veruspayinstall/officialsupportscripts/*/*.sh -R
 if [ "$remoteinstall" == "1" ];then
-sudo fallocate -l 4G /swapfile
-echo "Setting up 4GB swap file..."
-sleep 3
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-sudo cp /etc/fstab /etc/fstab.bk
-echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
-echo "vm.swappiness=40" | sudo tee -a /etc/sysctl.conf
-echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf
-clear
+    sudo fallocate -l 4G /swapfile
+    echo "Setting up 4GB swap file..."
+    sleep 3
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile
+    sudo swapon /swapfile
+    sudo cp /etc/fstab /etc/fstab.bk
+    echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
+    echo "vm.swappiness=40" | sudo tee -a /etc/sysctl.conf
+    echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf
+    clear
 else
     clear
 fi
@@ -166,42 +166,42 @@ sudo apt --yes -qq install build-essential pkg-config libc6-dev m4 g++-multilib 
 sudo apt -qq update
 sudo apt -y -qq autoremove
 if [ "$remoteinstall" == "1" ];then
-clear
-echo "Installing Apache..."
-echo ""
-echo ""
-sleep 3
-sudo apt -qq update
-sudo apt -y -qq autoremove
-sudo apt --yes -qq install curl wget apache2
-sudo ufw allow OpenSSH
-sudo ufw allow from $iptoallow to any port 443
-echo "y" | sudo ufw enable
-sudo cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.bak
-echo "ServerName $domain" | sudo tee -a /etc/apache2/apache2.conf
-sudo a2enmod rewrite
-sudo systemctl restart apache2
-sudo apt --yes -qq install php libapache2-mod-php
-sudo rm /etc/apache2/mods-available/dir.conf
-sudo touch /etc/apache2/mods-available/dir.conf
-cd /tmp/veruspayinstall
+    clear
+    echo "Installing Apache..."
+    echo ""
+    echo ""
+    sleep 3
+    sudo apt -qq update
+    sudo apt -y -qq autoremove
+    sudo apt --yes -qq install curl wget apache2
+    sudo ufw allow OpenSSH
+    sudo ufw allow from $iptoallow to any port 443
+    echo "y" | sudo ufw enable
+    sudo cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.bak
+    echo "ServerName $domain" | sudo tee -a /etc/apache2/apache2.conf
+    sudo a2enmod rewrite
+    sudo systemctl restart apache2
+    sudo apt --yes -qq install php libapache2-mod-php
+    sudo rm /etc/apache2/mods-available/dir.conf
+    sudo touch /etc/apache2/mods-available/dir.conf
+    cd /tmp/veruspayinstall
 cat >dir.conf <<EOL
 <IfModule mod_dir.c>
         DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
 </IfModule>
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 EOL
-sudo mv /tmp/veruspayinstall/dir.conf /etc/apache2/mods-available/dir.conf
-sudo systemctl restart apache2
-sudo apt -qq update
-sudo apt --yes -qq install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip expect
-sudo systemctl restart apache2
-if [ "$certresp" == "1" ];then
-echo "Installing SSL..."
-echo ""
-sleep 3
-cd /tmp/veruspayinstall
-sudo -E /tmp/veruspayinstall/veruschaintools/self_cert.sh
+    sudo mv /tmp/veruspayinstall/dir.conf /etc/apache2/mods-available/dir.conf
+    sudo systemctl restart apache2
+    sudo apt -qq update
+    sudo apt --yes -qq install php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip expect
+    sudo systemctl restart apache2
+    if [ "$certresp" == "1" ];then
+        echo "Installing SSL..."
+        echo ""
+        sleep 3
+        cd /tmp/veruspayinstall
+        sudo -E /tmp/veruspayinstall/veruschaintools/self_cert.sh
 cat >ssl-params.conf <<EOL
 SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
 SSLProtocol All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
@@ -215,10 +215,10 @@ SSLStaplingCache "shmcb:logs/stapling-cache(150000)"
 # Requires Apache >= 2.4.11
 SSLSessionTickets Off
 EOL
-sudo mv /tmp/veruspayinstall/ssl-params.conf /etc/apache2/conf-available/ssl-params.conf
-sudo cp /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
-sudo rm /etc/apache2/sites-available/default-ssl.conf
-cd /tmp/veruspayinstall
+        sudo mv /tmp/veruspayinstall/ssl-params.conf /etc/apache2/conf-available/ssl-params.conf
+        sudo cp /etc/apache2/sites-available/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf.bak
+        sudo rm /etc/apache2/sites-available/default-ssl.conf
+        cd /tmp/veruspayinstall
 cat >default-ssl.conf <<EOL
 <IfModule mod_ssl.c>
         <VirtualHost _default_:443>
@@ -245,19 +245,19 @@ cat >default-ssl.conf <<EOL
         </VirtualHost>
 </IfModule>
 EOL
-sudo mv /tmp/veruspayinstall/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
-sudo a2enmod ssl
-sudo a2enmod headers
-sudo a2ensite default-ssl
-sudo a2enconf ssl-params
-sudo systemctl restart apache2
-clear
+        sudo mv /tmp/veruspayinstall/default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+        sudo a2enmod ssl
+        sudo a2enmod headers
+        sudo a2ensite default-ssl
+        sudo a2enconf ssl-params
+        sudo systemctl restart apache2
+        clear
+    else
+        echo "Proceeding without SSL, either configure yourself or uncheck"
+        echo "the SSL checkbox within VerusPay when you configure."
+    fi
 else
-    echo "Proceeding without SSL, either configure yourself or uncheck"
-    echo "the SSL checkbox within VerusPay when you configure."
-fi
-else
-clear
+    clear
 fi
 echo "Downloading and unpacking Verus Chain Tools scripts..."
 echo ""
