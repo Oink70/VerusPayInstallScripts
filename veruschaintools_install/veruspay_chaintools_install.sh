@@ -109,7 +109,7 @@ if [ "$walletinstall" == "1" ];then
     else
         export vrsc=0
     fi
-    if [ "$arrr" == "1" ];
+    if [ "$vrsc" == "1" ];
         echo "Carefully enter a valid VRSC Transparent address, where you'll receive Transparent store cash outs:"
         read vrsc_t
         count_vrsc_t=${#vrsc_t}
