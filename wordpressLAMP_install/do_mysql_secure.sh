@@ -1,5 +1,24 @@
+SECURE_MYSQL=$(expect -c "
+set timeout 10
+spawn mysql_secure_installation
+expect \"VALIDATE PASSWORD PLUGIN can be used to test\"
+send \"n\r\"
+expect \"New password:\"
+send \"$rootpass\r\"
+expect \"Re-enter new password:\"
+send \"$rootpass\r\"
+expect \"Remove anonymous users?\"
+send \"y\r\"
+expect \"Disallow root login remotely?\"
+send \"y\r\"
+expect \"Remove test database and access to it?\"
+send \"y\r\"
+expect \"Reload privilege tables now?\"
+send \"y\r\"
+expect eof
+")
 CONFIG_MYSQL=$(expect -c "
-set timeout 3
+set timeout 10
 spawn mysql
 expect \"mysql>\"
 send \"SELECT user,authentication_string,plugin,host FROM mysql.user;\r\"
@@ -15,26 +34,6 @@ expect \"mysql>\"
 send \"exit;\r\"
 expect eof
 ")
-SECURE_MYSQL=$(expect -c "
-set timeout 3
-spawn mysql_secure_installation
-expect \"VALIDATE PASSWORD PLUGIN can be used to test\"
-send \"n\r\"
-expect \"Please set the password for root here.\"
-send \"y\r\"
-expect \"New password:\"
-send \"$rootpass\r\"
-expect \"Re-enter new password:\"
-send \"$rootpass\r\"
-expect \"Remove anonymous users?\"
-send \"y\r\"
-expect \"Disallow root login remotely?\"
-send \"y\r\"
-expect \"Remove test database and access to it?\"
-send \"y\r\"
-expect \"Reload privilege tables now?\"
-send \"y\r\"
-expect eof
-")
 echo "$SECURE_MYSQL"
+sleep 5
 echo "$CONFIG_MYSQL"

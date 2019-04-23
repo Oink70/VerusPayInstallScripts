@@ -53,11 +53,6 @@ echo "Thank you. Beginning WordPress server configuration!"
 echo ""
 mkdir -p /tmp/veruspaystore
 cd /tmp/veruspaystore
-wget https://veruspay.io/setup/verusstorescripts.tar.xz
-tar -xvf /tmp/veruspaystore/verusstorescripts.tar.xz
-mv /tmp/veruspaystore/add_another_domain.sh ~
-mv /tmp/veruspaystore/add_another_wp.sh ~
-mv /tmp/veruspaystore/add_db_wp.sh ~
 sudo fallocate -l 4G /swapfile
 echo "Setting up 4GB swap file..."
 sleep 3
@@ -128,7 +123,8 @@ echo ""
 sleep 6
 sudo apt --yes -qq install mysql-server expect
 #Run expect script for mysql, retain environment vars
-sudo -E /tmp/veruspaystore/do_mysql_secure.sh
+cd ~
+sudo -E veruspay_scripts/wordpressLAMP_install/do_mysql_secure.sh
 sudo apt --yes -qq install php libapache2-mod-php php-mysql
 sudo rm /etc/apache2/mods-available/dir.conf
 cd /tmp/veruspaystore
@@ -148,7 +144,8 @@ sleep 6
 sudo add-apt-repository -y ppa:certbot/certbot
 sudo apt --yes -qq install python-certbot-apache
 sudo systemctl reload apache2
-sudo -E /tmp/veruspaystore/do_certs.sh
+cd ~
+sudo -E veruspay_scripts/wordpressLAMP_install/do_certs.sh
 clear
 echo "Installing WordPress dependencies..."
 echo ""
@@ -226,8 +223,10 @@ echo "  WordPress DB User: "$wpuser
 echo "  WordPress DB Pass: "$wppass
 echo ""
 echo "  A script called 'add_another_domain.sh'"
-echo "  has been placed in your home folder"
-echo "  which can be run later if you ever "
+echo "  can be found within: "
+echo "  ~/veruspay_scripts/wordpressLAMP_install/"
+echo ""
+echo "  This can be run later if you ever "
 echo "  wish to add another domain to this "
 echo "  web server.                        "
 echo "                                     "
