@@ -3,7 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 wget $(curl -s https://api.github.com/repos/joliverwestbrook/VerusPayInstallScripts/releases/latest | grep 'browser_' | cut -d\" -f4 )
-tar -xvf *
+tar -xvf veruspay_install_scripts.tar.xz
 rm veruspay_chaintools_install.sh
 rm veruspay_install_scripts.tar.xz
 rm README.md
