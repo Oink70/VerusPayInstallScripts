@@ -148,93 +148,99 @@ else
     export walletinstall=0
 fi
 if [ "$walletinstall" == "1" ];then
-    echo "Install Pirate ARRR Daemon?"
-    read arrrans
-    if [[ $arrrans == "yes" ]] || [[ $arrrans == "y" ]];then
-        export arrr=1
-    else
-        export arrr=0
-    fi
-    if [ "$arrr" == "1" ];then
-        echo ""
-        echo "Now you need to enter valid PIRATE wallet addresses YOU OWN which will be used to withdraw store funds."
-        echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
-        echo ""
-        echo ""
-        echo "Carefully enter a valid ARRR Sapling address, where you'll receive store cash outs:"
-        read arrr_z
-        count_arrr_z=${#arrr_z}
-        arrrname="ARRR: "
-        arrrinsname="ARRR Pirate"
-    fi
-    echo "Install Verus VRSC Daemon?"
-    read vrscans
-    if [[ $vrscans == "yes" ]] || [[ $vrscans == "y" ]];then
-        export vrsc=1
-    else
-        export vrsc=0
-    fi
-    if [ "$vrsc" == "1" ];then
-        echo ""
-        echo "Now you need to enter valid VERUS wallet addresses YOU OWN which will be used to withdraw store funds."
-        echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
-        echo ""
-        echo ""
-        echo "Carefully enter a valid VRSC Transparent address, where you'll receive Transparent store cash outs:"
-        read vrsc_t
-        count_vrsc_t=${#vrsc_t}
-        echo "Carefully enter a valid VRSC Sapling address, where you'll receive Sapling store cash outs:"
-        read vrsc_z
-        count_vrsc_z=${#vrsc_z}
-        vrscname="VRSC: "
-        vrscinsname="VRSC Verus"
-    fi
-    echo "Install Komodo KMD Daemon?"
-    read kmdans
-    if [[ $kmdans == "yes" ]] || [[ $kmdans == "y" ]];then
-        export kmd=1
-        echo ""
-        echo "Please note: the Komodo blockchain is VERY LARGE"
-        echo "and you'll need a min of 20 GB free to install"
-        echo "(10GB for the chain, 10GB for the bootstrap) after"
-        echo "the install, only about 11 GB is used."
-        echo ""
-        echo "If you do not have enough disk space, it's recommended"
-        echo "you exit now and increase your disk space avail."
-        echo ""
-        freespace=$(df --output=avail -h "$PWD" | sed '1d;s/[^0-9]//g')"GB"
-        echo "It looks like you have $freespace available."
-        echo ""
-        echo "Do you want to continue? Have enough free space? (Yes or No)"
-        read kmdhdspace
-        if [[ $kmdhdspace == "no" ]] || [[ $kmdhdspace == "n" ]];then
-            echo ""
-            echo "Okay, exiting now..."
-            sleep 3
-            exit
+    if [ "$vrscupgrade" == "0" ];then
+        echo "Install Verus VRSC Daemon?"
+        read vrscans
+        if [[ $vrscans == "yes" ]] || [[ $vrscans == "y" ]];then
+            export vrsc=1
         else
-            echo ""
-            echo "Okay, continuing..."
-            echo ""
-            sleep 2
+            export vrsc=0
         fi
-    else
-        export kmd=0
+        if [ "$vrsc" == "1" ];then
+            echo ""
+            echo "Now you need to enter valid VERUS wallet addresses YOU OWN which will be used to withdraw store funds."
+            echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
+            echo ""
+            echo ""
+            echo "Carefully enter a valid VRSC Transparent address, where you'll receive Transparent store cash outs:"
+            read vrsc_t
+            count_vrsc_t=${#vrsc_t}
+            echo "Carefully enter a valid VRSC Sapling address, where you'll receive Sapling store cash outs:"
+            read vrsc_z
+            count_vrsc_z=${#vrsc_z}
+            vrscname="VRSC: "
+            vrscinsname="VRSC Verus"
+        fi
     fi
-    if [ "$kmd" == "1" ];then
-        echo ""
-        echo "Now you need to enter valid KOMODO wallet addresses YOU OWN which will be used to withdraw store funds."
-        echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
-        echo ""
-        echo ""
-        echo "Carefully enter a valid KMD Transparent address, where you'll receive Transparent store cash outs:"
-        read kmd_t
-        count_kmd_t=${#kmd_t}
-        echo "Carefully enter a valid KMD Sapling address, where you'll receive Sapling store cash outs:"
-        read kmd_z
-        count_kmd_z=${#kmd_z}
-        kmdname="KMD: "
-        kmdinsname="KMD Komodo"
+    if [ "$arrrupgrade" == "0" ];then
+        echo "Install Pirate ARRR Daemon?"
+        read arrrans
+        if [[ $arrrans == "yes" ]] || [[ $arrrans == "y" ]];then
+            export arrr=1
+        else
+            export arrr=0
+        fi
+        if [ "$arrr" == "1" ];then
+            echo ""
+            echo "Now you need to enter valid PIRATE wallet addresses YOU OWN which will be used to withdraw store funds."
+            echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
+            echo ""
+            echo ""
+            echo "Carefully enter a valid ARRR Sapling address, where you'll receive store cash outs:"
+            read arrr_z
+            count_arrr_z=${#arrr_z}
+            arrrname="ARRR: "
+            arrrinsname="ARRR Pirate"
+        fi
+    fi
+    if [ "$kmdupgrade" == "0" ];then
+        echo "Install Komodo KMD Daemon?"
+        read kmdans
+        if [[ $kmdans == "yes" ]] || [[ $kmdans == "y" ]];then
+            export kmd=1
+            echo ""
+            echo "Please note: the Komodo blockchain is VERY LARGE"
+            echo "and you'll need a min of 20 GB free to install"
+            echo "(10GB for the chain, 10GB for the bootstrap) after"
+            echo "the install, only about 11 GB is used."
+            echo ""
+            echo "If you do not have enough disk space, it's recommended"
+            echo "you exit now and increase your disk space avail."
+            echo ""
+            freespace=$(df --output=avail -h "$PWD" | sed '1d;s/[^0-9]//g')"GB"
+            echo "It looks like you have $freespace available."
+            echo ""
+            echo "Do you want to continue? Have enough free space? (Yes or No)"
+            read kmdhdspace
+            if [[ $kmdhdspace == "no" ]] || [[ $kmdhdspace == "n" ]];then
+                echo ""
+                echo "Okay, exiting now..."
+                sleep 3
+                exit
+            else
+                echo ""
+                echo "Okay, continuing..."
+                echo ""
+                sleep 2
+            fi
+        else
+            export kmd=0
+        fi
+        if [ "$kmd" == "1" ];then
+            echo ""
+            echo "Now you need to enter valid KOMODO wallet addresses YOU OWN which will be used to withdraw store funds."
+            echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
+            echo ""
+            echo ""
+            echo "Carefully enter a valid KMD Transparent address, where you'll receive Transparent store cash outs:"
+            read kmd_t
+            count_kmd_t=${#kmd_t}
+            echo "Carefully enter a valid KMD Sapling address, where you'll receive Sapling store cash outs:"
+            read kmd_z
+            count_kmd_z=${#kmd_z}
+            kmdname="KMD: "
+            kmdinsname="KMD Komodo"
+        fi
     fi
 else
     export vrsc=0
