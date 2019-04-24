@@ -379,14 +379,14 @@ if [ "$hasverus" == "0" ];then
         tempuser=`cat $isarrr/PIRATE.conf | grep "rpcuser"`
         export rpcuser=${tempuser#"rpcuser="}
         temppass=`cat $isarrr/PIRATE.conf | grep "rpcpassword"`
-        export rpcuser=${temppass#"rpcpassword="}
+        export rpcpass=${temppass#"rpcpassword="}
     fi
 else
     sleep 1
     tempuser=`cat $isvrsc/VRSC.conf | grep "rpcuser"`
     export rpcuser=${tempuser#"rpcuser="}
     temppass=`cat $isvrsc/VRSC.conf | grep "rpcpassword"`
-    export rpcuser=${temppass#"rpcpassword="}
+    export rpcpass=${temppass#"rpcpassword="}
 fi
 if [[ $hasverus == "0" ]] && [[ $hasarrr == "0" ]];then
     echo "Can't find a pre-existing install of either Verus or Pirate!"
