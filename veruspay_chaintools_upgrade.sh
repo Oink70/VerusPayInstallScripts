@@ -12,7 +12,7 @@ mkdir /tmp/veruspayupgrade
 mv veruspay_scripts /tmp/veruspayupgrade/
 chmod +x /tmp/veruspayupgrade/veruspay_scripts -R
 #Get variables and user input
-echo "clear"
+clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS & DAEMON UPGRADER!   |"
 echo "     |                             version 0.1.1              |"
@@ -400,7 +400,7 @@ else
     echo ""
     sleep 2
 fi
-echo "clear"
+clear
 echo ""
 echo "Performing upgrade of VerusChainTools and blockchain integration data..."
 echo ""
@@ -417,7 +417,7 @@ wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
 unzip master.zip
 sudo rm $rootpath/*
 sudo mv /tmp/veruspayupgrade/VerusChainTools-master/* $rootpath
-echo "clear"
+clear
 echo "Configuring Verus Chain Tools with your RPC, cashout addresses, and a new access code (will display at end of upgrade)..."
 echo ""
 echo ""
@@ -429,7 +429,7 @@ EOL
 sudo mv /tmp/veruspayupgrade/veruschaintools_config.php $rootpath/veruschaintools_config.php
 sudo chown -R www-data:www-data $rootpath
 sudo chmod 755 -R $rootpath
-echo "clear"
+clear
 echo ""
 echo ""
 if [ "$vrsc" == "1" ];then
@@ -449,7 +449,7 @@ if [ "$vrsc" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/verus
-    echo "clear"
+    clear
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -457,7 +457,7 @@ if [ "$vrsc" == "1" ];then
     mv /tmp/veruspayupgrade/veruspay_scripts/officialsupportscripts/verus/* /opt/verus/
     chmod +x /opt/verus/*.sh
     /opt/verus/fetchparams.sh
-    echo "clear"
+    clear
     echo "Downloading and unpacking VRSC bootstrap..."
     echo ""
     sleep 2
@@ -480,7 +480,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/verus/VRSC
 wallet=vrsc_store.dat
 EOL
-    echo "clear"
+    clear
     echo "Starting the Verus daemon in the background to begin Verus sync..."
     echo ""
     echo ""
@@ -496,7 +496,7 @@ EOL
     echo "*/5 * * * * /opt/verus/verusstat.sh" >> tempveruscron
     crontab tempveruscron
     rm tempveruscron
-    echo "clear"
+    clear
     vrscstat="Yes"
 else
     vrscstat="No"
@@ -518,7 +518,7 @@ if [ "$arrr" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/pirate
-    echo "clear"
+    clear
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -526,7 +526,7 @@ if [ "$arrr" == "1" ];then
     mv /tmp/veruspayupgrade/veruspay_scripts/officialsupportscripts/pirate/* /opt/pirate/
     chmod +x /opt/pirate/*.sh
     /opt/pirate/fetchparams.sh
-    echo "clear"
+    clear
     echo "Downloading and unpacking ARRR bootstrap..."
     echo ""
     sleep 2
@@ -549,7 +549,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/pirate/ARRR
 wallet=arrr_store.dat
 EOL
-    echo "clear"
+    clear
     echo "Starting Pirate daemon in the background to begin Pirate sync..."
     echo ""
     echo ""
@@ -565,7 +565,7 @@ EOL
     echo "*/5 * * * * /opt/pirate/piratestat.sh" >> temppiratecron
     crontab temppiratecron
     rm temppiratecron
-    echo "clear"
+    clear
     arrrstat="Yes"
 else
     arrrstat="No"
@@ -588,7 +588,7 @@ if [ "$kmd" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/komodo
-    echo "clear"
+    clear
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -596,7 +596,7 @@ if [ "$kmd" == "1" ];then
     mv /tmp/veruspayupgrade/veruspay_scripts/officialsupportscripts/komodo/* /opt/komodo/
     chmod +x /opt/komodo/*.sh
     /opt/komodo/fetchparams.sh
-    echo "clear"
+    clear
     echo "Downloading and unpacking KMD bootstrap..."
     echo ""
     sleep 2
@@ -619,7 +619,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/komodo/KMD
 wallet=kmd_store.dat
 EOL
-    echo "clear"
+    clear
     echo "Starting new screen and running Komodo daemon to begin Komodo sync..."
     echo ""
     echo ""
@@ -635,17 +635,17 @@ EOL
     echo "*/5 * * * * /opt/komodo/komodostat.sh" >> tempkomodocron
     crontab tempkomodocron
     rm tempkomodocron
-    echo "clear"
+    clear
     kmdstat="Yes"
 else
     kmdstat="No"
 fi
-echo "clear"
+clear
 echo ""
 echo " Cleaning Up...."
 sleep 3
 sudo rm /tmp/veruspayupgrade -r
-echo "clear"
+clear
 echo ""
 echo "     ======================================================"
 echo "     =                     IMPORTANT!                     ="
