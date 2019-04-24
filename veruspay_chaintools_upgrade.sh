@@ -50,7 +50,6 @@ echo "2) This server is THE SAME SERVER AS MY WOOCOMMERCE STORE"
 echo ""
 echo "Enter a number option (1 or 2) and press ENTER:"
 read whatserver
-
 if [ "$whatserver" == "1" ];then
     echo "Okay, we will now upgrade your REMOTE WALLET SERVER"
     locwpconfig="$(sudo find /var/www -type d -name 'veruschaintools')"
@@ -135,7 +134,6 @@ if [[ $arrrupans == "yes" ]] || [[ $arrrupans == "y" ]];then
 else
     arrrupgrade=0
 fi
-
 echo "Install Newly Available Wallet Daemons along with your Verus Chain Tools Upgrade? (Yes or No)"
 read whatinstall
 if [[ $whatinstall == "yes" ]] || [[ $whatinstall == "y" ]];then
@@ -148,21 +146,7 @@ else
     export walletinstall=0
 fi
 if [ "$walletinstall" == "1" ];then
-
-
-
-echo "verus upgrade: $vrscupgrade"
-
-
-
-
     if [ "$vrscupgrade" == "0" ];then
-
-
-echo $vrscupgrade
-
-
-
         echo "Install Verus VRSC Daemon?"
         read vrscans
         if [[ $vrscans == "yes" ]] || [[ $vrscans == "y" ]];then
@@ -381,29 +365,21 @@ else
 fi
 isvrsc="$(sudo find /opt -type d -name 'verus')"
 isarrr="$(sudo find /opt -type d -name 'pirate')"
-
-
-
-echo "verus: $isvrsc"
-echo "pirate: $isarrr"
-
-
-
 if [ -z "$isvrsc" ];then
-    hasverus=1
-else
     hasverus=0
+else
+    hasverus=1
 fi
 if [ "$hasverus" == "0" ];then
     if [ -z "$isarrr" ];then
+        hasarrr=0
+    else
         hasarrr=1
         sleep 1
         tempuser=`cat $isarrr/PIRATE.conf | grep "rpcuser"`
         export rpcuser=${tempuser#"rpcuser="}
         temppass=`cat $isarrr/PIRATE.conf | grep "rpcpassword"`
         export rpcuser=${temppass#"rpcpassword="}
-    else
-        hasarrr=0
     fi
 else
     sleep 1
