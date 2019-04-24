@@ -6,7 +6,7 @@ mkdir /tmp/veruspayinstall
 cp -r veruspay_scripts /tmp/veruspayinstall/
 chmod +x /tmp/veruspayinstall/veruspay_scripts -R
 #Get variables and user input
-echo "clear"
+clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS DAEMON INSTALLER!    |"
 echo "     |                                                        |"
@@ -166,9 +166,9 @@ if [ "$remoteinstall" == "1" ];then
     echo "/swapfile none swap sw 0 0" | sudo tee -a /etc/fstab
     echo "vm.swappiness=40" | sudo tee -a /etc/sysctl.conf
     echo "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf
-    echo "clear"
+    clear
 else
-    echo "clear"
+    clear
 fi
 echo "Installing some dependencies..."
 sleep 1
@@ -177,7 +177,7 @@ sudo apt --yes -qq install build-essential pkg-config libc6-dev m4 g++-multilib 
 sudo apt -qq update
 sudo apt -y -qq autoremove
 if [ "$remoteinstall" == "1" ];then
-    echo "clear"
+    clear
     echo "Installing Apache..."
     echo ""
     echo ""
@@ -262,13 +262,13 @@ EOL
         sudo a2ensite default-ssl
         sudo a2enconf ssl-params
         sudo systemctl restart apache2
-        echo "clear"
+        clear
     else
         echo "Proceeding without SSL, either configure yourself or uncheck"
         echo "the SSL checkbox within VerusPay when you configure."
     fi
 else
-    echo "clear"
+    clear
 fi
 echo "Downloading and unpacking Verus Chain Tools scripts..."
 echo ""
@@ -279,7 +279,7 @@ wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
 unzip master.zip
 sudo mkdir $rootpath/veruschaintools
 sudo mv /tmp/veruspayinstall/VerusChainTools-master/* $rootpath/veruschaintools
-echo "clear"
+clear
 echo "Installing Verus Chain Tools..."
 echo ""
 echo ""
@@ -291,7 +291,7 @@ EOL
 sudo mv /tmp/veruspayinstall/veruschaintools_config.php $rootpath/veruschaintools/veruschaintools_config.php
 sudo chown -R www-data:www-data $rootpath/veruschaintools
 sudo chmod 755 -R $rootpath/veruschaintools
-echo "clear"
+clear
 if [ "$vrsc" == "1" ];then
     echo "Downloading and unpacking latest Verus CLI release..."
     echo "installing to: /opt/verus ..."
@@ -306,7 +306,7 @@ if [ "$vrsc" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/verus
-    echo "clear"
+    clear
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -314,7 +314,7 @@ if [ "$vrsc" == "1" ];then
     mv /tmp/veruspayinstall/veruspay_scripts/officialsupportscripts/verus/* /opt/verus/
     chmod +x /opt/verus/*.sh
     /opt/verus/fetchparams.sh
-    echo "clear"
+    clear
     echo "Downloading and unpacking VRSC bootstrap..."
     echo "setting up configuration files..."
     echo ""
@@ -335,7 +335,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/verus/VRSC
 wallet=vrsc_store.dat
 EOL
-    echo "clear"
+    clear
     echo "Starting new screen and running Verus daemon to begin Verus sync..."
     echo ""
     echo ""
@@ -351,7 +351,7 @@ EOL
     echo "*/5 * * * * /opt/verus/verusstat.sh" >> tempveruscron
     crontab tempveruscron
     rm tempveruscron
-    echo "clear"
+    clear
     vrscstat="Yes"
 else
     vrscstat="No"
@@ -370,7 +370,7 @@ if [ "$arrr" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/pirate
-    echo "clear"
+    clear
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -378,7 +378,7 @@ if [ "$arrr" == "1" ];then
     mv /tmp/veruspayinstall/veruspay_scripts/officialsupportscripts/pirate/* /opt/pirate/
     chmod +x /opt/pirate/*.sh
     /opt/pirate/fetchparams.sh
-    echo "clear"
+    clear
     echo "Downloading and unpacking ARRR bootstrap..."
     echo "setting up configuration file..."
     echo ""
@@ -399,7 +399,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/pirate/ARRR
 wallet=arrr_store.dat
 EOL
-    echo "clear"
+    clear
     echo "Starting new screen and running Pirate daemon to begin Pirate sync..."
     echo ""
     echo ""
@@ -415,7 +415,7 @@ EOL
     echo "*/5 * * * * /opt/pirate/piratestat.sh" >> temppiratecron
     crontab temppiratecron
     rm temppiratecron
-    echo "clear"
+    clear
     arrrstat="Yes"
 else
     arrrstat="No"
@@ -434,7 +434,7 @@ if [ "$kmd" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/komodo
-    echo "clear"
+    clear
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -442,7 +442,7 @@ if [ "$kmd" == "1" ];then
     mv /tmp/veruspayinstall/veruspay_scripts/officialsupportscripts/komodo/* /opt/komodo/
     chmod +x /opt/komodo/*.sh
     /opt/komodo/fetchparams.sh
-    echo "clear"
+    clear
     echo "Downloading and unpacking KMD bootstrap..."
     echo "setting up configuration files..."
     echo ""
@@ -463,7 +463,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/komodo/KMD
 wallet=kmd_store.dat
 EOL
-    echo "clear"
+    clear
     echo "Starting new screen and running Komodo daemon to begin Komodo sync..."
     echo ""
     echo ""
@@ -479,17 +479,17 @@ EOL
     echo "*/5 * * * * /opt/komodo/komodostat.sh" >> tempkomodocron
     crontab tempkomodocron
     rm tempkomodocron
-    echo "clear"
+    clear
     kmdstat="Yes"
 else
     kmdstat="No"
 fi
-echo "clear"
+clear
 echo ""
 echo " Cleaning Up...."
 sleep 3
 sudo rm /tmp/veruspayinstall -r
-echo "clear"
+clear
 echo ""
 echo "     ====================================="
 echo "     =           IMPORTANT!              ="
