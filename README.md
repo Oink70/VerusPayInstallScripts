@@ -186,7 +186,19 @@ The script will create a file in the same folder called VerusPayGeneratedAddress
 
 * Although both the Install and Setup scripts will install a cron job to make sure Verus daemon stays "alive" every 5 min, keep an eye on it regularly, this software is still very much "Beta" and not guaranteed in any way.
 
-* To Upgrade for VerusPay v0.3.0 compatibility, download and run the `veruspay_chaintools_upgrade.sh` script from the server where your wallet daemons are installed and running.
+##### UPGRADING
+* To Upgrade for VerusPay v0.3.0 compatibility, download and run the `veruspay_chaintools_upgrade.sh` script from the server where your wallet daemons are installed and running, following these easy steps:
+1. Disable your VerusPay store payment gateway within WooCommerce.
+2. On your server where your wallet daemons are located, download the upgrade script, make it executable, and run it:
+`wget https://veruspay.io/setup/veruspay_chaintools_upgrade.sh`
+
+`chmod +x veruspay_chaintools_upgrade.sh`
+
+`./veruspay_chaintools_upgrade.sh`
+
+3. After the upgrade, install the latest version of VerusPay plugin within WordPress (v0.3.0+)
+
+Questions or for support feel free to contact J Oliver Westbrook on the official VerusCoin Discord in the veruspay channel.
 
 #### FAQs:
 
