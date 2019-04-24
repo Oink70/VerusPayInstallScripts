@@ -155,6 +155,7 @@ This script does NOT store or send this information anywhere, you can review the
 SUPPORTED CRYPTOS:
 Verus VRSC
 Pirate ARRR
+Komodo KMD *NEW*
 
 Issue these commands to run the installer:
 
@@ -185,6 +186,8 @@ The script will create a file in the same folder called VerusPayGeneratedAddress
 
 * Although both the Install and Setup scripts will install a cron job to make sure Verus daemon stays "alive" every 5 min, keep an eye on it regularly, this software is still very much "Beta" and not guaranteed in any way.
 
+* To Upgrade for VerusPay v0.3.0 compatibility, download and run the `veruspay_chaintools_upgrade.sh` script from the server where your wallet daemons are installed and running.
+
 #### FAQs:
 
 ##### Q:
@@ -206,3 +209,7 @@ If you are withdrawing "private" or "sapling" funds (e.g. from sales made to a "
 For Verus: `/opt/verus/verus.sh z_sendmany "STOREADDRESSSENDINGFROM" "[{\"address\": \"RECEIVEADDRESS\", \"amount\":AMOUNT}]"`
 
 For Pirate: `/opt/pirate/pirate.sh z_sendmany "STOREADDRESSSENDINGFROM" "[{\"address\": \"RECEIVEADDRESS\", \"amount\":AMOUNT}]"`
+
+#### Upgrade Notice
+= 0.1.1 =
+New coin support added for Komodo KMD, New functionality added to VerusChainTools install and upgrade scripts, upgrade script added to repo
