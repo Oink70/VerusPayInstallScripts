@@ -9,6 +9,9 @@ chmod +x /tmp/veruspayinstall/veruspay_scripts -R
 clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS DAEMON INSTALLER!    |"
+echo "     |                             version 0.1.1              |"
+echo "     |                                                        |"
+echo "     |  Support for: Verus, Pirate, Komodo                    |"
 echo "     |                                                        |"
 echo "     |  This installer will install Verus Chain Tools and     |"
 echo "     |  the selected wallet daemons. This installer should be |"
@@ -97,6 +100,11 @@ if [ "$walletinstall" == "1" ];then
         export arrr=0
     fi
     if [ "$arrr" == "1" ];then
+        echo ""
+        echo "Now you need to enter valid PIRATE wallet addresses YOU OWN which will be used to withdraw store funds."
+        echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
+        echo ""
+        echo ""
         echo "Carefully enter a valid ARRR Sapling address, where you'll receive store cash outs:"
         read arrr_z
         count_arrr_z=${#arrr_z}
@@ -109,6 +117,11 @@ if [ "$walletinstall" == "1" ];then
         export vrsc=0
     fi
     if [ "$vrsc" == "1" ];then
+        echo ""
+        echo "Now you need to enter valid VERUS wallet addresses YOU OWN which will be used to withdraw store funds."
+        echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
+        echo ""
+        echo ""
         echo "Carefully enter a valid VRSC Transparent address, where you'll receive Transparent store cash outs:"
         read vrsc_t
         count_vrsc_t=${#vrsc_t}
@@ -124,6 +137,11 @@ if [ "$walletinstall" == "1" ];then
         export kmd=0
     fi
     if [ "$kmd" == "1" ];then
+        echo ""
+        echo "Now you need to enter valid KOMODO wallet addresses YOU OWN which will be used to withdraw store funds."
+        echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
+        echo ""
+        echo ""
         echo "Carefully enter a valid KMD Transparent address, where you'll receive Transparent store cash outs:"
         read kmd_t
         count_kmd_t=${#kmd_t}
@@ -147,14 +165,71 @@ if [[ $vrsc == "0" ]] && [[ $arrr == "0" ]] && [[ $kmd == "0" ]];then
     break
 else
     echo ""
-    echo "Thank you. Beginning server configuration!"
+    echo "Please CAREFULLY verify that the following"
+    echo "RECEIVE addresses you entered for store cashouts"
+    echo "are ABSOLUTELY CORRECT.  If not, cancel and"
+    echo "restart this script."
     echo ""
+    echo "      "$vrscname
+    echo $vrsc_t
+    echo $vrsc_z
+    echo ""
+    echo ""
+    echo ""
+    echo "      "$arrrname
+    echo $arrr_z
+    echo ""
+    echo ""
+    echo ""
+    echo "      "$kmdname
+    echo $kmd_t
+    echo $kmd_z
+    echo ""
+    echo ""
+    echo "Do the above addresses all look COMPLETELY ACCURATE? (Yes or No)"
+    read confirmaddr
+    if [[ $confirmaddr == "yes" ]] || [[ $confirmaddr == "y" ]];then
+        echo "You have confirmed that the addresses you entered are accurate"
+        echo "and that you own these and hold the private keys, and can access"
+        echo "funds sent to them.  Remember, these are your cash-out addresses"
+        echo "for when you cashout from your online store crypto. If you enter"
+        echo "them incorrectly here, and can't actually get funds sent to them"
+        echo "there is absolutely no way to recover crypto sent to them!!"
+        echo ""
+        echo "So let's just confirm ONCE more! Are you sure these are accurate"
+        echo "and that the addresses accurately coincide with the coin as they"
+        echo "show above? Addresses are below the coin heading. Confirm? (Yes or No)"
+        read confirmaddragain
+        if [[ $confirmaddragain == "yes" ]] || [[ $confirmaddragain == "y" ]];then
+            echo ""
+            echo "Okay! Let's continue..."
+            sleep 3
+        else
+            echo ""
+            echo ""
+            echo "Okay, good thing we double-checked! This script will now end, you can"
+            echo "start it again and try again :)"
+            exit
+        fi
+    else
+        echo ""
+        echo ""
+        echo "Okay, good thing we checked! This script will now end, you can"
+        echo "start it again and try again :)"
+        exit
+    fi
+    echo ""
+    echo "Beginning server configuration and installation of the following:"
+    echo ""
+    echo $vrscname
+    echo $arrrname
+    echo $kmdname
 fi
 [ "$ulength" == "" ] && ulength=10
 [ "$plength" == "" ] && plength=66
 export rpcuser="user"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${ulength} | xargs)
 export rpcpass="pass"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
-export access="vrsc"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
+export access="v011"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
 if [ "$remoteinstall" == "1" ];then
     sudo fallocate -l 4G /swapfile
     echo "Setting up 4GB swap file..."
