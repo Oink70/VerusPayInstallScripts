@@ -12,7 +12,7 @@ mkdir /tmp/veruspayupgrade
 mv veruspay_scripts /tmp/veruspayupgrade/
 chmod +x /tmp/veruspayupgrade/veruspay_scripts -R
 #Get variables and user input
-clear
+echo "clear"
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS & DAEMON UPGRADER!   |"
 echo "     |                             version 0.1.1              |"
@@ -100,7 +100,7 @@ echo ""
 echo "Do You Have Verus Coin Installed? (Yes or No)"
 read vrscupans
 if [[ $vrscupans == "yes" ]] || [[ $vrscupans == "y" ]];then
-    export vrscupgrade=1
+    vrscupgrade=1
     echo ""
     echo "Now you need to enter valid VERUS wallet addresses YOU OWN which will be used to withdraw store funds."
     echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
@@ -114,7 +114,7 @@ if [[ $vrscupans == "yes" ]] || [[ $vrscupans == "y" ]];then
     count_vrsc_z=${#vrsc_z}
     vrscname="VRSC: "
 else
-    export vrscupgrade=0
+    vrscupgrade=0
 fi
 echo ""
 echo ""
@@ -122,7 +122,7 @@ echo ""
 echo "Do You Have PIRATE Installed? (Yes or No)"
 read arrrupans
 if [[ $arrrupans == "yes" ]] || [[ $arrrupans == "y" ]];then
-    export arrrupgrade=1
+    arrrupgrade=1
     echo ""
     echo "Now you need to enter valid PIRATE wallet addresses YOU OWN which will be used to withdraw store funds."
     echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
@@ -133,7 +133,7 @@ if [[ $arrrupans == "yes" ]] || [[ $arrrupans == "y" ]];then
     count_arrr_z=${#arrr_z}
     arrrname="ARRR: "
 else
-    export arrrupgrade=0
+    arrrupgrade=0
 fi
 
 echo "Install Newly Available Wallet Daemons along with your Verus Chain Tools Upgrade? (Yes or No)"
@@ -148,7 +148,21 @@ else
     export walletinstall=0
 fi
 if [ "$walletinstall" == "1" ];then
+
+
+
+echo "verus upgrade: $vrscupgrade"
+
+
+
+
     if [ "$vrscupgrade" == "0" ];then
+
+
+echo $vrscupgrade
+
+
+
         echo "Install Verus VRSC Daemon?"
         read vrscans
         if [[ $vrscans == "yes" ]] || [[ $vrscans == "y" ]];then
@@ -193,54 +207,52 @@ if [ "$walletinstall" == "1" ];then
             arrrinsname="ARRR Pirate"
         fi
     fi
-    if [ "$kmdupgrade" == "0" ];then
-        echo "Install Komodo KMD Daemon?"
-        read kmdans
-        if [[ $kmdans == "yes" ]] || [[ $kmdans == "y" ]];then
-            export kmd=1
+    echo "Install Komodo KMD Daemon?"
+    read kmdans
+    if [[ $kmdans == "yes" ]] || [[ $kmdans == "y" ]];then
+        export kmd=1
+        echo ""
+        echo "Please note: the Komodo blockchain is VERY LARGE"
+        echo "and you'll need a min of 20 GB free to install"
+        echo "(10GB for the chain, 10GB for the bootstrap) after"
+        echo "the install, only about 11 GB is used."
+        echo ""
+        echo "If you do not have enough disk space, it's recommended"
+        echo "you exit now and increase your disk space avail."
+        echo ""
+        freespace=$(df --output=avail -h "$PWD" | sed '1d;s/[^0-9]//g')"GB"
+        echo "It looks like you have $freespace available."
+        echo ""
+        echo "Do you want to continue? Have enough free space? (Yes or No)"
+        read kmdhdspace
+        if [[ $kmdhdspace == "no" ]] || [[ $kmdhdspace == "n" ]];then
             echo ""
-            echo "Please note: the Komodo blockchain is VERY LARGE"
-            echo "and you'll need a min of 20 GB free to install"
-            echo "(10GB for the chain, 10GB for the bootstrap) after"
-            echo "the install, only about 11 GB is used."
-            echo ""
-            echo "If you do not have enough disk space, it's recommended"
-            echo "you exit now and increase your disk space avail."
-            echo ""
-            freespace=$(df --output=avail -h "$PWD" | sed '1d;s/[^0-9]//g')"GB"
-            echo "It looks like you have $freespace available."
-            echo ""
-            echo "Do you want to continue? Have enough free space? (Yes or No)"
-            read kmdhdspace
-            if [[ $kmdhdspace == "no" ]] || [[ $kmdhdspace == "n" ]];then
-                echo ""
-                echo "Okay, exiting now..."
-                sleep 3
-                exit
-            else
-                echo ""
-                echo "Okay, continuing..."
-                echo ""
-                sleep 2
-            fi
+            echo "Okay, exiting now..."
+            sleep 3
+            exit
         else
-            export kmd=0
+            echo ""
+            echo "Okay, continuing..."
+            echo ""
+            sleep 2
         fi
-        if [ "$kmd" == "1" ];then
-            echo ""
-            echo "Now you need to enter valid KOMODO wallet addresses YOU OWN which will be used to withdraw store funds."
-            echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
-            echo ""
-            echo ""
-            echo "Carefully enter a valid KMD Transparent address, where you'll receive Transparent store cash outs:"
-            read kmd_t
-            count_kmd_t=${#kmd_t}
-            echo "Carefully enter a valid KMD Sapling address, where you'll receive Sapling store cash outs:"
-            read kmd_z
-            count_kmd_z=${#kmd_z}
-            kmdname="KMD: "
-            kmdinsname="KMD Komodo"
-        fi
+    else
+        export kmd=0
+    fi
+    if [ "$kmd" == "1" ];then
+        echo ""
+        echo "Now you need to enter valid KOMODO wallet addresses YOU OWN which will be used to withdraw store funds."
+        echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
+        echo ""
+        echo ""
+        echo "Carefully enter a valid KMD Transparent address, where you'll receive Transparent store cash outs:"
+        read kmd_t
+        count_kmd_t=${#kmd_t}
+        echo "Carefully enter a valid KMD Sapling address, where you'll receive Sapling store cash outs:"
+        read kmd_z
+        count_kmd_z=${#kmd_z}
+        kmdname="KMD: "
+        kmdinsname="KMD Komodo"
     fi
 else
     export vrsc=0
@@ -369,6 +381,14 @@ else
 fi
 isvrsc="$(sudo find /opt -type d -name 'verus')"
 isarrr="$(sudo find /opt -type d -name 'pirate')"
+
+
+
+echo "verus: $isvrsc"
+echo "pirate: $isarrr"
+
+
+
 if [ -z "$isvrsc" ];then
     hasverus=1
 else
@@ -404,7 +424,7 @@ else
     echo ""
     sleep 2
 fi
-clear
+echo "clear"
 echo ""
 echo "Performing upgrade of VerusChainTools and blockchain integration data..."
 echo ""
@@ -421,7 +441,7 @@ wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
 unzip master.zip
 sudo rm $rootpath/*
 sudo mv /tmp/veruspayupgrade/VerusChainTools-master/* $rootpath
-clear
+echo "clear"
 echo "Configuring Verus Chain Tools with your RPC, cashout addresses, and a new access code (will display at end of upgrade)..."
 echo ""
 echo ""
@@ -433,7 +453,7 @@ EOL
 sudo mv /tmp/veruspayupgrade/veruschaintools_config.php $rootpath/veruschaintools_config.php
 sudo chown -R www-data:www-data $rootpath
 sudo chmod 755 -R $rootpath
-clear
+echo "clear"
 echo ""
 echo ""
 if [ "$vrsc" == "1" ];then
@@ -453,7 +473,7 @@ if [ "$vrsc" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/verus
-    clear
+    echo "clear"
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -461,7 +481,7 @@ if [ "$vrsc" == "1" ];then
     mv /tmp/veruspayupgrade/veruspay_scripts/officialsupportscripts/verus/* /opt/verus/
     chmod +x /opt/verus/*.sh
     /opt/verus/fetchparams.sh
-    clear
+    echo "clear"
     echo "Downloading and unpacking VRSC bootstrap..."
     echo ""
     sleep 2
@@ -484,7 +504,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/verus/VRSC
 wallet=vrsc_store.dat
 EOL
-    clear
+    echo "clear"
     echo "Starting the Verus daemon in the background to begin Verus sync..."
     echo ""
     echo ""
@@ -500,7 +520,7 @@ EOL
     echo "*/5 * * * * /opt/verus/verusstat.sh" >> tempveruscron
     crontab tempveruscron
     rm tempveruscron
-    clear
+    echo "clear"
     vrscstat="Yes"
 else
     vrscstat="No"
@@ -522,7 +542,7 @@ if [ "$arrr" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/pirate
-    clear
+    echo "clear"
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -530,7 +550,7 @@ if [ "$arrr" == "1" ];then
     mv /tmp/veruspayupgrade/veruspay_scripts/officialsupportscripts/pirate/* /opt/pirate/
     chmod +x /opt/pirate/*.sh
     /opt/pirate/fetchparams.sh
-    clear
+    echo "clear"
     echo "Downloading and unpacking ARRR bootstrap..."
     echo ""
     sleep 2
@@ -553,7 +573,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/pirate/ARRR
 wallet=arrr_store.dat
 EOL
-    clear
+    echo "clear"
     echo "Starting Pirate daemon in the background to begin Pirate sync..."
     echo ""
     echo ""
@@ -569,7 +589,7 @@ EOL
     echo "*/5 * * * * /opt/pirate/piratestat.sh" >> temppiratecron
     crontab temppiratecron
     rm temppiratecron
-    clear
+    echo "clear"
     arrrstat="Yes"
 else
     arrrstat="No"
@@ -592,7 +612,7 @@ if [ "$kmd" == "1" ];then
     tar -xvf *
     cd */
     mv * /opt/komodo
-    clear
+    echo "clear"
     echo "Fetching Zcash parameters if needed..."
     echo ""
     echo ""
@@ -600,7 +620,7 @@ if [ "$kmd" == "1" ];then
     mv /tmp/veruspayupgrade/veruspay_scripts/officialsupportscripts/komodo/* /opt/komodo/
     chmod +x /opt/komodo/*.sh
     /opt/komodo/fetchparams.sh
-    clear
+    echo "clear"
     echo "Downloading and unpacking KMD bootstrap..."
     echo ""
     sleep 2
@@ -623,7 +643,7 @@ rpcallowip=127.0.0.1
 datadir=/opt/komodo/KMD
 wallet=kmd_store.dat
 EOL
-    clear
+    echo "clear"
     echo "Starting new screen and running Komodo daemon to begin Komodo sync..."
     echo ""
     echo ""
@@ -639,17 +659,17 @@ EOL
     echo "*/5 * * * * /opt/komodo/komodostat.sh" >> tempkomodocron
     crontab tempkomodocron
     rm tempkomodocron
-    clear
+    echo "clear"
     kmdstat="Yes"
 else
     kmdstat="No"
 fi
-clear
+echo "clear"
 echo ""
 echo " Cleaning Up...."
 sleep 3
 sudo rm /tmp/veruspayupgrade -r
-clear
+echo "clear"
 echo ""
 echo "     ======================================================"
 echo "     =                     IMPORTANT!                     ="
