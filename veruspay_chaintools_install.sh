@@ -19,7 +19,8 @@ echo "     |  used either on a dedicated remote wallet server or on |"
 echo "     |  your WordPress-WooCommerce Store server.              |"
 echo "     |                                                        |"
 echo "     |  If you are installing on your store server, do so     |"
-echo "     |  only AFTER you have installed WordPress.              |"
+echo "     |  only AFTER you have installed WordPress but BEFORE    |"
+echo "     |  you insall the VerusPay plugin.                       |"
 echo "     |                                                        |"
 echo "     |  If you are installing on a dedicated wallet server,   |"
 echo "     |  please note this installer is meant for a new server. |"
@@ -28,14 +29,13 @@ echo "     |  wallet daemon installed, please abort and contact us  |"
 echo "     |  in the official VerusCoin Discord.  Othewise, just    |"
 echo "     |  continue!                                             |"
 echo "     |                                                        |"
-echo "     |          Installer will begin in 30 seconds            |"
 echo "     |                                                        |"
-echo "     |            Press CTRL-Z Now to Abort                   |"
+echo "     |     Press any key to continue or CTRL-Z to Abort       |"
+echo "     |                                                        |"
 echo "     |                                                        |"
 echo "     =========================================================="
-echo ""
-sleep 30
-echo ""
+read anykeyone
+clear
 shopt -s nocasematch
 echo "Is this server a REMOTE WALLET server (not the same as your store server)?"
 echo "Choose a wallet daemon installation mode:"
@@ -65,8 +65,31 @@ else
         echo "if that is incorrect, press CTRL-Z to end this script."
     fi
     export domain="localhost"
-    export afterinst="Please Reboot This Server After Writing Down the Above Info"
     export remoteinstall=0
+fi
+echo ""
+echo ""
+echo "Note: This install may require up to 30 GB of free disk space depending on which daemons you choose to install."
+echo ""
+generalfreespace=$(df --output=avail -h "$PWD" | sed '1d;s/[^0-9]//g')"GB"
+echo "It looks like you have about $generalfreespace available. Following is an estimate of how much space you'll need for installing each daemon (installing takes about double the space of the chain, after the install that space is reclaimed):"
+echo ""
+echo "Verus: ~3GB"
+echo "Pirate: ~5GB"
+echo "Komodo: ~20GB"
+echo ""
+echo "Do you want to continue? Have enough free space? (Yes or No)"
+read allhdspace
+if [[ $allhdspace == "no" ]] || [[ $allhdspace == "n" ]];then
+    echo ""
+    echo "Okay, exiting now..."
+    sleep 3
+    exit
+else
+    echo ""
+    echo "Okay, continuing..."
+    echo ""
+    sleep 2
 fi
 if [ "$remoteinstall" == "1" ];then
     echo "Enter the IP address of your WooCommerce VerusPay store server"
@@ -133,6 +156,31 @@ if [ "$walletinstall" == "1" ];then
     read kmdans
     if [[ $kmdans == "yes" ]] || [[ $kmdans == "y" ]];then
         export kmd=1
+        echo ""
+        echo "Please note: the Komodo blockchain is VERY LARGE"
+        echo "and you'll need a min of 20 GB free to install KMD"
+        echo "(10GB for the chain, 10GB for the bootstrap) after"
+        echo "the install, only about 11 GB is used."
+        echo ""
+        echo "If you do not have enough disk space, it's recommended"
+        echo "you exit now and increase your disk space avail."
+        echo ""
+        freespace=$(df --output=avail -h "$PWD" | sed '1d;s/[^0-9]//g')"GB"
+        echo "It looks like you have $freespace available."
+        echo ""
+        echo "Do you want to continue? Have enough free space? (Yes or No)"
+        read kmdhdspace
+        if [[ $kmdhdspace == "no" ]] || [[ $kmdhdspace == "n" ]];then
+            echo ""
+            echo "Okay, exiting now..."
+            sleep 3
+            exit
+        else
+            echo ""
+            echo "Okay, continuing..."
+            echo ""
+            sleep 2
+        fi
     else
         export kmd=0
     fi
@@ -591,6 +639,4 @@ echo "    |      Wallet IP: $domain                              |"
 echo "    |      Access Code:                                    |"
 echo "    |      $access                                         |"
 echo "     ======================================================"
-echo ""
-echo "     $afterinst"
 echo ""

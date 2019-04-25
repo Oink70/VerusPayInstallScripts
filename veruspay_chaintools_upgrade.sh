@@ -33,14 +33,19 @@ echo "     |  already have VerusChainTools and at least one daemon  |"
 echo "     |  installed.  If this is not your config please abort   |"
 echo "     |  and contact us in the VerusCoin Discord.              |"
 echo "     |                                                        |"
-echo "     |          Installer will begin in 30 seconds            |"
 echo "     |                                                        |"
-echo "     |            Press CTRL-Z Now to Abort                   |"
+echo "     |     Press any key to continue or CTRL-Z to Abort       |"
+echo "     |                                                        |"
 echo "     |                                                        |"
 echo "     =========================================================="
+read anykeyone
+clear
 echo ""
-sleep 30
+echo "     *** WARNING: Before continuing please disable your VerusPay plugin in your WooCommerce store, so your shoppers don't run into any strange errors. This script will wait for you to verify you've done this."
 echo ""
+echo "         Press any key when ready to proceed"
+read anykeytwo
+clear
 shopt -s nocasematch
 echo "Is this server a REMOTE WALLET server (not the same as your store server)?"
 echo "Choose a wallet daemon upgrade mode:"
@@ -79,10 +84,32 @@ else
         echo ""
     fi
     export domain="localhost"
-    export afterinst="Please Reboot This Server After Writing Down the Above Info"
     export remoteinstall=0
 fi
-
+echo ""
+echo ""
+echo "Note: This upgrade may require up to 30 GB of free disk space depending on which daemons you are adding."
+echo ""
+generalfreespace=$(df --output=avail -h "$PWD" | sed '1d;s/[^0-9]//g')"GB"
+echo "It looks like you have about $generalfreespace available. Following is an estimate of how much space you'll need for installing each daemon (installing takes about double the space of the chain, after the install that space is reclaimed):"
+echo ""
+echo "Verus: ~3GB"
+echo "Pirate: ~5GB"
+echo "Komodo: ~20GB"
+echo ""
+echo "Do you want to continue? Have enough free space? (Yes or No)"
+read allhdspace
+if [[ $allhdspace == "no" ]] || [[ $allhdspace == "n" ]];then
+    echo ""
+    echo "Okay, exiting now..."
+    sleep 3
+    exit
+else
+    echo ""
+    echo "Okay, continuing..."
+    echo ""
+    sleep 2
+fi
 if [ "$remoteinstall" == "1" ];then
     echo "Enter the IP address of your WooCommerce VerusPay store server"
     echo "(e.g. 123.12.123.123):"
@@ -197,7 +224,7 @@ if [ "$walletinstall" == "1" ];then
         export kmd=1
         echo ""
         echo "Please note: the Komodo blockchain is VERY LARGE"
-        echo "and you'll need a min of 20 GB free to install"
+        echo "and you'll need a min of 20 GB free to install KMD"
         echo "(10GB for the chain, 10GB for the bootstrap) after"
         echo "the install, only about 11 GB is used."
         echo ""
@@ -672,6 +699,4 @@ echo "    |      Wallet IP: $domain                              |"
 echo "    |      Access Code:                                    |"
 echo "    |      $access                                         |"
 echo "     ======================================================"
-echo ""
-echo "     $afterinst"
 echo ""
