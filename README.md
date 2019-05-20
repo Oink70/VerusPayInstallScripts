@@ -198,6 +198,12 @@ The script will create a file in the same folder called VerusPayGeneratedAddress
 
 3. After the upgrade, install the latest version of VerusPay plugin within WordPress (v0.3.0+)
 
+##### UPDATING
+* To Update from v0.3.x to the latest version without a Daemon change, you'll need to update VerusChainTools and VerusPay. Follow these steps:
+1. Disable your VerusPay store payment gateway within WooCommerce.
+2. On your server where your wallet daemons are located, run the simple VerusChainTools updater to get to the latest version. Download with `wget https://veruspay.io/setup/veruspay_chaintools_update.sh` then do `chmod +x veruspay_chaintools_update.sh` and lastly run the script with `./veruspay_chaintools_update.sh`
+3. From your WordPress store, visit the Installed Plugins section and click Update for VerusPay.
+
 Questions or for support feel free to contact J Oliver Westbrook on the official VerusCoin Discord in the veruspay channel.
 
 #### FAQs:
