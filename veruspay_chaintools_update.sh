@@ -42,8 +42,9 @@ cd /tmp/veruspayupdate
 wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
 unzip master.zip
 sudo rm $rootpath/index.php
-sudo mv /tmp/veruspayupgrade/VerusChainTools-master/index.php $rootpath
+sudo mv /tmp/veruspayupdate/VerusChainTools-master/index.php $rootpath
 clear
 echo "Update Complete!"
 echo ""
 echo ""
+rm /tmp/veruspayupdate -r
