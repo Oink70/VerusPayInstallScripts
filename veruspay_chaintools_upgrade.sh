@@ -15,7 +15,7 @@ chmod +x /tmp/veruspayupgrade/veruspay_scripts -R
 clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS & DAEMON UPGRADER!   |"
-echo "     |                             version 0.1.1              |"
+echo "     |                             version 0.1.2              |"
 echo "     |                                                        |"
 echo "     |  Support for: Verus, Pirate, Komodo                    |"
 echo "     |                                                        |"

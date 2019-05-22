@@ -229,5 +229,9 @@ For Verus: `/opt/verus/verus.sh z_sendmany "STOREADDRESSSENDINGFROM" "[{\"addres
 For Pirate: `/opt/pirate/pirate.sh z_sendmany "STOREADDRESSSENDINGFROM" "[{\"address\": \"RECEIVEADDRESS\", \"amount\":AMOUNT}]"`
 
 #### Upgrade Notice
+
+= 0.1.2 =
+Bug fixes for both Install and Upgrade scripts
+
 = 0.1.1 =
 New coin support added for Komodo KMD, New functionality added to VerusChainTools install and upgrade scripts, upgrade script added to repo
