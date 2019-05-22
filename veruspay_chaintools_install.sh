@@ -121,6 +121,7 @@ if [ "$walletinstall" == "1" ];then
         export arrr=1
     else
         export arrr=0
+        count_arrr_z=0
     fi
     if [ "$arrr" == "1" ];then
         echo ""
@@ -138,6 +139,7 @@ if [ "$walletinstall" == "1" ];then
         export vrsc=1
     else
         export vrsc=0
+        count_vrsc_z=0
     fi
     if [ "$vrsc" == "1" ];then
         echo ""
@@ -183,6 +185,7 @@ if [ "$walletinstall" == "1" ];then
         fi
     else
         export kmd=0
+        count_kmd_t=0
     fi
     if [ "$kmd" == "1" ];then
         echo ""

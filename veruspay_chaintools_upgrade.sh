@@ -141,6 +141,7 @@ if [[ $vrscupans == "yes" ]] || [[ $vrscupans == "y" ]];then
     vrscname="VRSC: "
 else
     vrscupgrade=0
+    count_vrsc_z=0
 fi
 echo ""
 echo ""
@@ -160,6 +161,7 @@ if [[ $arrrupans == "yes" ]] || [[ $arrrupans == "y" ]];then
     arrrname="ARRR: "
 else
     arrrupgrade=0
+    count_arrr_z=0
 fi
 echo "Install Newly Available Wallet Daemons along with your Verus Chain Tools Upgrade? (Yes or No)"
 read whatinstall
@@ -249,6 +251,7 @@ if [ "$walletinstall" == "1" ];then
         fi
     else
         export kmd=0
+        count_kmd_t=0
     fi
     if [ "$kmd" == "1" ];then
         echo ""
