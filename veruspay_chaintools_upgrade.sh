@@ -434,7 +434,7 @@ echo ""
 echo ""
 sleep 3
 [ "$plength" == "" ] && plength=66
-export access="v011"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
+export access="v012"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
 echo "Downloading and replacing latest version of Verus Chain Tools..."
 echo ""
 echo ""
