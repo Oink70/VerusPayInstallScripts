@@ -6,7 +6,7 @@ cd $DIR
 clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUSCHAINTOOLS UPDATE UTILITY!       |"
-echo "     |                                                        |"
+echo "     |                               v0.1.2                   |"
 echo "     |                                                        |"
 echo "     |  Updater Only (This will NOT update daemons)           |"
 echo "     |                                                        |"
@@ -43,6 +43,8 @@ wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
 unzip master.zip
 sudo rm $rootpath/index.php
 sudo mv /tmp/veruspayupdate/VerusChainTools-master/index.php $rootpath
+sudo chown -R www-data:www-data $rootpath
+sudo chmod 755 -R $rootpath
 clear
 echo "Update Complete!"
 echo ""
