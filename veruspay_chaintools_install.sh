@@ -479,7 +479,7 @@ if [ "$vrsc" == "1" ];then
     if [ "$md5vrscbootcompare" == "$md5vrscboot" ];then
         echo "Checksum matched using SHA256!  Continuing..."
     else
-        echo "VerusChainTools checksum did not match! Exiting..."
+        echo "Verus Bootstrap checksum did not match! Exiting..."
         echo ""
         echo "Please report this in the Verus discord"
         exit
@@ -540,15 +540,27 @@ if [ "$arrr" == "1" ];then
     chmod +x /opt/pirate/*.sh
     /opt/pirate/fetchparams.sh
     clear
-    echo "Skipping ARRR bootstrap (not available atm)..."
+    echo "Getting ARRR bootstrap..."
     echo "setting up configuration file..."
     echo ""
     echo ""
     sleep 3
     mkdir /opt/pirate/ARRR
     cd /tmp/veruspayinstall
-    #wget https://bootstrap.0x03.services/pirate/ARRR-bootstrap.tar.gz
-    #tar -xvf ARRR-bootstrap.tar.gz -C /opt/pirate/ARRR
+    wget https://bootstrap.dexstats.info/PIRATE-bootstrap.tar.gz
+    wget https://bootstrap.dexstats.info/PIRATE-bootstrap.tar.gz.sha256
+    shaarrrraw=`sha256sum -b PIRATE-bootstrap.tar.gz`
+    shaarrr=${shaarrrraw/% *PIRATE-bootstrap.tar.gz/}
+    shaarrrcompare=`cat PIRATE-bootstrap.tar.gz.sha256`
+if [ "$shaarrrcompare" == "$shaarrr" ];then
+     echo "Checksum matched using SHA256!  Continuing..."
+else
+     echo "Pirate Bootstrap checksum did not match! Exiting..."
+     echo ""
+     echo "Please report this in the Verus discord"
+     exit
+fi
+    tar -xvf PIRATE-bootstrap.tar.gz -C /opt/pirate/ARRR
 cat >/opt/pirate/PIRATE.conf <<EOL
 rpcuser=$rpcuser
 rpcpassword=$rpcpass
@@ -604,15 +616,27 @@ if [ "$kmd" == "1" ];then
     chmod +x /opt/komodo/*.sh
     /opt/komodo/fetchparams.sh
     clear
-    echo "Skipping KMD bootstrap (unavailable ATM)..."
+    echo "Getting KMD bootstrap..."
     echo "setting up configuration files..."
     echo ""
     echo ""
     sleep 3
     mkdir /opt/komodo/KMD
     cd /tmp/veruspayinstall
-    #wget https://bootstrap.0x03.services/komodo/KMD-bootstrap.tar.gz
-    #tar -xvf KMD-bootstrap.tar.gz -C /opt/komodo/KMD
+    wget https://bootstrap.dexstats.info/KMD-bootstrap.tar.gz
+    wget https://bootstrap.dexstats.info/KMD-bootstrap.tar.gz.sha256
+    shakmdraw=`sha256sum -b KMD-bootstrap.tar.gz`
+    shakmd=${shakmdraw/% *KMD-bootstrap.tar.gz/}
+    shakmdcompare=`cat KMD-bootstrap.tar.gz.sha256`
+if [ "$shakmdcompare" == "$shakmd" ];then
+     echo "Checksum matched using SHA256!  Continuing..."
+else
+     echo "Komodo Bootstrap checksum did not match! Exiting..."
+     echo ""
+     echo "Please report this in the Verus discord"
+     exit
+fi
+    tar -xvf KMD-bootstrap.tar.gz -C /opt/komodo/KMD
 cat >/opt/komodo/KMD.conf <<EOL
 rpcuser=$rpcuser
 rpcpassword=$rpcpass
