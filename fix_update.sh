@@ -167,8 +167,22 @@ cat >veruschaintools_config.php <<EOL
 EOL
 sudo rm $rootpath/veruschaintools_config.php
 sudo rm $rootpath/index.php
-wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
-unzip master.zip
+
+wget $(curl -s https://api.github.com/repos/joliverwestbrook/VerusChainTools/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )
+wget $(curl -s https://api.github.com/repos/joliverwestbrook/VerusChainTools/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )".md5"
+md5vctraw=`md5sum -b VerusChainTools-master.zip`
+md5vct=${md5vctraw/% *VerusChainTools-master.zip/}
+md5vctcompare=`cat VerusChainTools-master.zip.md5`
+if [ "$md5vctcompare" == "$md5vct" ];then
+     echo "Checksum matched using MD5!  Continuing..."
+else
+     echo "VerusChainTools checksum did not match! Exiting..."
+     echo ""
+     echo "Please report this in the Verus discord"
+     exit
+fi
+unzip VerusChainTools-master.zip
+
 sudo mv /tmp/veruspayupdate/VerusChainTools-master/index.php $rootpath
 sudo mv /tmp/veruspayupdate/veruschaintools_config.php $rootpath
 sudo chown -R www-data:www-data $rootpath

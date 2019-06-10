@@ -44,6 +44,18 @@ sudo apt --yes -qq expect
 sudo -E ./add_db_wp.sh
 cd /tmp
 curl -O https://wordpress.org/latest.tar.gz
+curl -O https://wordpress.org/latest.tar.gz.md5
+md5latestraw=`md5sum -b latest.tar.gz`
+md5latest=${md5latestraw/% *latest.tar.gz/}
+md5compare=`cat latest.tar.gz.md5`
+if [ "$md5compare" == "$md5latest" ];then
+     echo "Checksum matched using MD5!  Continuing..."
+else
+     echo "WordPress checksum did not match! Exiting..."
+     echo ""
+     echo "Please report this in the Verus discord"
+     exit
+fi
 tar xzvf latest.tar.gz
 clear
 echo "Configuring WordPress files, folders, permissions, and config..."
