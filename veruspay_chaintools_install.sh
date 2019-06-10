@@ -9,7 +9,7 @@ chmod +x /tmp/veruspayinstall/veruspay_scripts -R
 clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS DAEMON INSTALLER!    |"
-echo "     |                             version 0.1.5              |"
+echo "     |                             version 0.3.6              |"
 echo "     |                                                        |"
 echo "     |  Support for: Verus, Pirate, Komodo                    |"
 echo "     |                                                        |"
@@ -277,7 +277,7 @@ fi
 [ "$plength" == "" ] && plength=66
 export rpcuser="user"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${ulength} | xargs)
 export rpcpass="pass"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
-export access="v012"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
+export access="v036"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
 if [ "$remoteinstall" == "1" ];then
     sudo fallocate -l 4G /swapfile
     echo "Setting up 4GB swap file..."

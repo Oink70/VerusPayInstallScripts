@@ -161,7 +161,7 @@ rpcuser=${u:8}
 mkdir /tmp/veruspayupdate
 cd /tmp/veruspayupdate
 [ "$plength" == "" ] && plength=66
-access="v012"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
+access="v036"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
 cat >veruschaintools_config.php <<EOL
 <?php a:4:{s:6:"access";a:1:{s:4:"pass";s:70:"$access";}s:4:"vrsc";a:5:{s:8:"rpc_user";s:14:"$rpcuser";s:8:"rpc_pass";s:70:"$rpcpass";s:4:"port";s:5:"27486";s:5:"taddr";s:$count_vrsc_t:"$vrsc_t";s:5:"zaddr";s:$count_vrsc_z:"$vrsc_z";}s:4:"arrr";a:5:{s:8:"rpc_user";s:14:"$rpcuser";s:8:"rpc_pass";s:70:"$rpcpass";s:4:"port";s:5:"45453";s:5:"taddr";s:0:"";s:5:"zaddr";s:$count_arrr_z:"$arrr_z";}s:3:"kmd";a:5:{s:8:"rpc_user";s:14:"$rpcuser";s:8:"rpc_pass";s:70:"$rpcpass";s:4:"port";s:4:"7771";s:5:"taddr";s:$count_kmd_t:"$kmd_t";s:5:"zaddr";s:0:"";}}
 EOL

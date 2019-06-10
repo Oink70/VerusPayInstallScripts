@@ -1,6 +1,8 @@
 
 # VerusPay Install Scripts and Configuration Instructions
 
+Version: 0.3.6
+
 Following this guide and with the accompanying easy scripts, you will be able to:
 
 - Setup a new WordPress LAMP Server to use with WooCommerce as an online ecommerce store
