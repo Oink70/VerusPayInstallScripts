@@ -27,7 +27,7 @@ chmod +x /tmp/veruspayupgrade/veruspay_scripts -R
 clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS & DAEMON UPGRADER!   |"
-echo "     |                             version 0.1.5              |"
+echo "     |                             version 0.3.6              |"
 echo "     |                                                        |"
 echo "     |  Support for: Verus, Pirate, Komodo                    |"
 echo "     |                                                        |"
@@ -446,7 +446,7 @@ echo ""
 echo ""
 sleep 3
 [ "$plength" == "" ] && plength=66
-export access="v012"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
+export access="v036"$(tr -dc A-Za-z0-9 < /dev/urandom | head -c ${plength} | xargs)
 echo "Downloading and replacing latest version of Verus Chain Tools..."
 echo ""
 echo ""

@@ -6,7 +6,7 @@ cd $DIR
 clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUSCHAINTOOLS UPDATE UTILITY!       |"
-echo "     |                               v0.1.2                   |"
+echo "     |                               v0.3.6                   |"
 echo "     |                                                        |"
 echo "     |  Updater Only (This will NOT update daemons)           |"
 echo "     |                                                        |"
