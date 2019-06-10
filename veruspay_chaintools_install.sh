@@ -9,7 +9,7 @@ chmod +x /tmp/veruspayinstall/veruspay_scripts -R
 clear
 echo "     =========================================================="
 echo "     |   WELCOME TO THE VERUS CHAINTOOLS DAEMON INSTALLER!    |"
-echo "     |                             version 0.1.2              |"
+echo "     |                             version 0.1.5              |"
 echo "     |                                                        |"
 echo "     |  Support for: Verus, Pirate, Komodo                    |"
 echo "     |                                                        |"
@@ -398,8 +398,20 @@ echo ""
 echo ""
 sleep 3
 cd /tmp/veruspayinstall
-wget https://github.com/joliverwestbrook/VerusChainTools/archive/master.zip
-unzip master.zip
+wget $(curl -s https://api.github.com/repos/joliverwestbrook/VerusChainTools/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )
+wget $(curl -s https://api.github.com/repos/joliverwestbrook/VerusChainTools/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )".md5"
+md5vctraw=`md5sum -b VerusChainTools-master.zip`
+md5vct=${md5vctraw/% *VerusChainTools-master.zip/}
+md5vctcompare=`cat VerusChainTools-master.zip.md5`
+if [ "$md5vctcompare" == "$md5vct" ];then
+     echo "Checksum matched using MD5!  Continuing..."
+else
+     echo "VerusChainTools checksum did not match! Exiting..."
+     echo ""
+     echo "Please report this in the Verus discord"
+     exit
+fi
+unzip VerusChainTools-master.zip
 sudo mkdir $rootpath/veruschaintools
 sudo mv /tmp/veruspayinstall/VerusChainTools-master/* $rootpath/veruschaintools
 clear
@@ -426,6 +438,19 @@ if [ "$vrsc" == "1" ];then
     mkdir /tmp/veruspayinstall/verus
     cd /tmp/veruspayinstall/verus
     wget $(curl -s https://api.github.com/repos/VerusCoin/VerusCoin/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )
+    wget $(curl -s https://api.github.com/repos/VerusCoin/VerusCoin/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )".sha256"
+    shavrscraw=`sha256sum -b Verus-CLI*.gz`
+    shavrsc=${shavrscraw/% *Ver*.gz/}
+    shavrsccompareraw=`cat Verus-CLI*.sha256`
+    shavrsccompare=${shavrsccompareraw/%  Ver*.gz/}
+    if [ "$shavrsccompare" == "$shavrsc" ];then
+        echo "Checksum matched using SHA256!  Continuing..."
+    else
+        echo "Verus daemon checksum did not match! Exiting..."
+        echo ""
+        echo "Please report this in the Verus discord"
+        exit
+    fi
     tar -xvf *
     cd */
     mv * /opt/verus
@@ -446,7 +471,20 @@ if [ "$vrsc" == "1" ];then
     mkdir /opt/verus/VRSC
     cd /tmp/veruspayinstall
     wget https://bootstrap.0x03.services/veruscoin/VRSC-bootstrap.tar.gz
-    tar -xvf VRSC-bootstrap.tar.gz -C /opt/verus/VRSC
+    wget https://bootstrap.0x03.services/veruscoin/VRSC-bootstrap.tar.gz.sha256sum
+    md5vrscbootraw=`sha256sum -b VRSC-bootstrap.tar.gz`
+    md5vrscboot=${md5vrscbootraw/% *VRSC-bootstrap.tar.gz/}
+    md5vrscbootcompareraw=`cat VRSC-bootstrap.tar.gz.sha256sum`
+    md5vrscbootcompare=${md5vrscbootcompareraw/%  VRSC-bootstrap.tar.gz/}
+    if [ "$md5vrscbootcompare" == "$md5vrscboot" ];then
+        echo "Checksum matched using SHA256!  Continuing..."
+    else
+        echo "VerusChainTools checksum did not match! Exiting..."
+        echo ""
+        echo "Please report this in the Verus discord"
+        exit
+    fi
+tar -xvf VRSC-bootstrap.tar.gz -C /opt/verus/VRSC
 cat >/opt/verus/VRSC.conf <<EOL
 rpcuser=$rpcuser
 rpcpassword=$rpcpass
@@ -502,15 +540,15 @@ if [ "$arrr" == "1" ];then
     chmod +x /opt/pirate/*.sh
     /opt/pirate/fetchparams.sh
     clear
-    echo "Downloading and unpacking ARRR bootstrap..."
+    echo "Skipping ARRR bootstrap (not available atm)..."
     echo "setting up configuration file..."
     echo ""
     echo ""
     sleep 3
     mkdir /opt/pirate/ARRR
     cd /tmp/veruspayinstall
-    wget https://bootstrap.0x03.services/pirate/ARRR-bootstrap.tar.gz
-    tar -xvf ARRR-bootstrap.tar.gz -C /opt/pirate/ARRR
+    #wget https://bootstrap.0x03.services/pirate/ARRR-bootstrap.tar.gz
+    #tar -xvf ARRR-bootstrap.tar.gz -C /opt/pirate/ARRR
 cat >/opt/pirate/PIRATE.conf <<EOL
 rpcuser=$rpcuser
 rpcpassword=$rpcpass
@@ -566,15 +604,15 @@ if [ "$kmd" == "1" ];then
     chmod +x /opt/komodo/*.sh
     /opt/komodo/fetchparams.sh
     clear
-    echo "Downloading and unpacking KMD bootstrap..."
+    echo "Skipping KMD bootstrap (unavailable ATM)..."
     echo "setting up configuration files..."
     echo ""
     echo ""
     sleep 3
     mkdir /opt/komodo/KMD
     cd /tmp/veruspayinstall
-    wget https://bootstrap.0x03.services/komodo/KMD-bootstrap.tar.gz
-    tar -xvf KMD-bootstrap.tar.gz -C /opt/komodo/KMD
+    #wget https://bootstrap.0x03.services/komodo/KMD-bootstrap.tar.gz
+    #tar -xvf KMD-bootstrap.tar.gz -C /opt/komodo/KMD
 cat >/opt/komodo/KMD.conf <<EOL
 rpcuser=$rpcuser
 rpcpassword=$rpcpass
