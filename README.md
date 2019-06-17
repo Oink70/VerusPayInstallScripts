@@ -61,7 +61,7 @@ Next, I recommend enabling SSH key login, over password login, as it's much more
 
 `cd ~`
 
-`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.1/veruspay_install_scripts.tar.xz`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/0.3.6/veruspay_install_scripts.tar.xz`
 
 `tar -xvf veruspay_install_scripts.tar.xz`
 
@@ -119,7 +119,7 @@ Issue these commands to run the installer:
 
 `cd ~`
 
-`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.1/veruspay_install_scripts.tar.xz`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/0.3.6/veruspay_install_scripts.tar.xz`
 
 `tar -xvf veruspay_install_scripts.tar.xz`
 
@@ -163,7 +163,7 @@ Issue these commands to run the installer:
 
 `cd ~`
 
-`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/v0.1.1/veruspay_install_scripts.tar.xz`
+`wget https://github.com/joliverwestbrook/VerusPayInstallScripts/releases/download/0.3.6/veruspay_install_scripts.tar.xz`
 
 `tar -xvf veruspay_install_scripts.tar.xz`
 
