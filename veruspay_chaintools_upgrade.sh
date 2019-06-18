@@ -495,9 +495,23 @@ if [ "$vrsc" == "1" ];then
     sudo mkdir -p /opt/verus
     sudo chown -R $USER:$USER /opt/verus
     mkdir /tmp/veruspayupgrade/verus
-    cd /tmp/veruspayupgrade/verus
+    cd /tmp/veruspayinstall/verus
     wget $(curl -s https://api.github.com/repos/VerusCoin/VerusCoin/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )
-    tar -xvf *
+    wget $(curl -s https://api.github.com/repos/VerusCoin/VerusCoin/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )".sha256"
+    shavrscraw=`sha256sum -b Verus-CLI*.gz`
+    shavrsc=${shavrscraw/% *Ver*.gz/}
+    shavrsccompareraw=`cat Verus-CLI*.sha256`
+    shavrsccompare=${shavrsccompareraw/%  Ver*.gz/}
+    if [ "$shavrsccompare" == "$shavrsc" ];then
+        echo "Checksum matched using SHA256!  Continuing..."
+        rm Verus-CLI*.sha256
+    else
+        echo "Verus daemon checksum did not match! Exiting..."
+        echo ""
+        echo "Please report this in the Verus discord"
+        exit
+    fi
+    tar -xvf Verus-CLI*.gz
     cd */
     mv * /opt/verus
     clear
