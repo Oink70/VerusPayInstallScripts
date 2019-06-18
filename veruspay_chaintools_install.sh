@@ -445,13 +445,14 @@ if [ "$vrsc" == "1" ];then
     shavrsccompare=${shavrsccompareraw/%  Ver*.gz/}
     if [ "$shavrsccompare" == "$shavrsc" ];then
         echo "Checksum matched using SHA256!  Continuing..."
+        rm Verus-CLI*.sha256
     else
         echo "Verus daemon checksum did not match! Exiting..."
         echo ""
         echo "Please report this in the Verus discord"
         exit
     fi
-    tar -xvf *
+    tar -xvf Verus-CLI*.gz
     cd */
     mv * /opt/verus
     clear
