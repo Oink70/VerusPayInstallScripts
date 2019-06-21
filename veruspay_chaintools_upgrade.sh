@@ -495,9 +495,23 @@ if [ "$vrsc" == "1" ];then
     sudo mkdir -p /opt/verus
     sudo chown -R $USER:$USER /opt/verus
     mkdir /tmp/veruspayupgrade/verus
-    cd /tmp/veruspayupgrade/verus
+    cd /tmp/veruspayinstall/verus
     wget $(curl -s https://api.github.com/repos/VerusCoin/VerusCoin/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )
-    tar -xvf *
+    wget $(curl -s https://api.github.com/repos/VerusCoin/VerusCoin/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )".sha256"
+    shavrscraw=`sha256sum -b Verus-CLI*.gz`
+    shavrsc=${shavrscraw/% *Ver*.gz/}
+    shavrsccompareraw=`cat Verus-CLI*.sha256`
+    shavrsccompare=${shavrsccompareraw/%  Ver*.gz/}
+    if [ "$shavrsccompare" == "$shavrsc" ];then
+        echo "Checksum matched using SHA256!  Continuing..."
+        rm Verus-CLI*.sha256
+    else
+        echo "Verus daemon checksum did not match! Exiting..."
+        echo ""
+        echo "Please report this in the Verus discord"
+        exit
+    fi
+    tar -xvf Verus-CLI*.gz
     cd */
     mv * /opt/verus
     clear
@@ -578,8 +592,22 @@ if [ "$arrr" == "1" ];then
     sudo chown -R $USER:$USER /opt/pirate
     mkdir /tmp/veruspayupgrade/pirate
     cd /tmp/veruspayupgrade/pirate
-    wget $(curl -s https://api.github.com/repos/PirateNetwork/komodo/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )
-    tar -xvf *
+    wget $(curl -s https://api.github.com/repos/joliverwestbrook/pirate-komodo/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )
+    wget $(curl -s https://api.github.com/repos/joliverwestbrook/pirate-komodo/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )".md5"
+    md5arrrraw=`md5sum -b komodo*.gz`
+    md5arrr=${md5arrrraw/% *komodo*.gz/}
+    md5arrrcompareraw=`cat komodo*.md5`
+    md5arrrcompare=${md5arrrcompareraw/%  komodo*.gz/}
+    if [ "$md5arrrcompare" == "$md5arrr" ];then
+        echo "Checksum matched using MD5!  Continuing..."
+        rm komodo*.md5
+    else
+        echo "Pirate daemon checksum did not match! Exiting..."
+        echo ""
+        echo "Please report this in the Verus discord"
+        exit
+    fi
+    tar -xvf komodo*.gz
     cd */
     mv * /opt/pirate
     clear
@@ -660,8 +688,22 @@ if [ "$kmd" == "1" ];then
     sudo chown -R $USER:$USER /opt/komodo
     mkdir /tmp/veruspayupgrade/komodo
     cd /tmp/veruspayupgrade/komodo
-    wget $(curl -s https://api.github.com/repos/KomodoPlatform/komodo/releases/latest | grep 'browser_' | grep -E 'Linux|linux' | grep -v 'sha256' | cut -d\" -f4 )
-    tar -xvf *
+    wget $(curl -s https://api.github.com/repos/joliverwestbrook/pirate-komodo/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )
+    wget $(curl -s https://api.github.com/repos/joliverwestbrook/pirate-komodo/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )".md5"
+    md5kmdraw=`md5sum -b komodo*.gz`
+    md5kmd=${md5kmdraw/% *komodo*.gz/}
+    md5kmdcompareraw=`cat komodo*.md5`
+    md5kmdcompare=${md5kmdcompareraw/%  komodo*.gz/}
+    if [ "$md5kmdcompare" == "$md5kmd" ];then
+        echo "Checksum matched using MD5!  Continuing..."
+        rm komodo*.md5
+    else
+        echo "Komodo daemon checksum did not match! Exiting..."
+        echo ""
+        echo "Please report this in the Verus discord"
+        exit
+    fi
+    tar -xvf komodo*.gz
     cd */
     mv * /opt/komodo
     clear
