@@ -140,6 +140,9 @@ echo "Do You Have Verus Coin Installed? (Yes or No)"
 read vrscupans
 if [[ $vrscupans == "yes" ]] || [[ $vrscupans == "y" ]];then
     vrscupgrade=1
+    echo "Stopping the Verus daemon...(this may take up to 1 min)"
+    /opt/verus/verus.sh stop
+    sleep 45
     echo ""
     echo "Now you need to enter valid VERUS wallet addresses YOU OWN which will be used to withdraw store funds."
     echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
@@ -163,6 +166,9 @@ echo "Do You Have PIRATE Installed? (Yes or No)"
 read arrrupans
 if [[ $arrrupans == "yes" ]] || [[ $arrrupans == "y" ]];then
     arrrupgrade=1
+    echo "Stopping the Pirate daemon...(this may take up to 1 min)"
+    /opt/pirate/pirate.sh stop
+    sleep 45
     echo ""
     echo "Now you need to enter valid PIRATE wallet addresses YOU OWN which will be used to withdraw store funds."
     echo "To paste in the addresses within a Linux terminal right-click and paste, or SHIFT-CTRL-V."
