@@ -2,6 +2,7 @@
 #set working directory to the location of this script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
+rm veruspay_install_scripts.tar.xz*
 wget $(curl -s https://api.github.com/repos/joliverwestbrook/VerusPayInstallScripts/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )
 wget $(curl -s https://api.github.com/repos/joliverwestbrook/VerusPayInstallScripts/releases/latest | grep 'browser_' | grep -v 'md5' | cut -d\" -f4 )".md5"
 md5vpisraw=`md5sum -b veruspay_install_scripts.tar.xz`
